@@ -1,11 +1,17 @@
 #include <iostream>
+#include "Grafo.h"
 
 
 using namespace std;
 
 int main()
 {
-    std::cout << "Hello, World!" << std::endl;
+    srand(0);
+
+    Grafo* grafo = Grafo::gerarGrafoOrdemCem();
+
+    grafo->imprimirGrafo();
+
     return 0;
 }
 

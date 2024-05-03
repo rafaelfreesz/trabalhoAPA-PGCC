@@ -53,3 +53,24 @@ void Grafo::imprimirGrafo() {
     }
 
 }
+
+Grafo * Grafo::gerarGrafoOrdemCem() {
+
+    Grafo* grafo = new Grafo(100);
+
+    int grau = 100*(1+rand()%10);
+
+    for(int i=0;i<grau;i++) {
+        int a = rand()%grafo->ordem;
+        int b = rand()%grafo->ordem;
+
+        while(a==b || grafo->adjacencia[a][b]) {
+            a = rand()%grafo->ordem; b = rand()%grafo->ordem;
+        }
+
+        grafo->incluirAresta(a,b);
+
+    }
+
+    return grafo;
+}

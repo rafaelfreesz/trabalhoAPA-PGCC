@@ -23,6 +23,8 @@ public:
     int ordem; //quantidade de vertices;
     bool** adjacencia; //Matriz de adjacencia binária
 
+    static Grafo * gerarGrafoOrdemCem();
+
 
 
 
