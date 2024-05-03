@@ -35,6 +35,7 @@ void Grafo::incluirAresta(int i, int j) {
     if(this->adjacencia[i][j]) { cout<<"Multiaresta não permitido"<<endl; return; }
 
     this->adjacencia[i][j] = true;
+    this->adjacencia[j][i] = true;
     this->grau++;
 
 }
