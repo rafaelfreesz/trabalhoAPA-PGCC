@@ -1,0 +1,3 @@
+D:/Estudos/Mestrado/Disicplinas/APA/prj_trabalho/cmake-build-debug/CMakeFiles/prj_trabalho.dir
+D:/Estudos/Mestrado/Disicplinas/APA/prj_trabalho/cmake-build-debug/CMakeFiles/edit_cache.dir
+D:/Estudos/Mestrado/Disicplinas/APA/prj_trabalho/cmake-build-debug/CMakeFiles/rebuild_cache.dir
