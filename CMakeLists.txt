@@ -3,4 +3,7 @@ project(prj_trabalho)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(prj_trabalho main.cpp)
+add_executable(prj_trabalho main.cpp
+        Grafo.cpp
+        Grafo.h
+)
