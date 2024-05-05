@@ -90,9 +90,9 @@ bool * Grafo::gerarRepresentacaoVetorial() {
     for(int i=0;i<nVetor;i++) {
         grafoVetorial[i]=this->adjacencia[linha][coluna];
 
-        if(coluna == (this->ordem - linha-1)) {
-            coluna = 0;
+        if(coluna == this->ordem-1) {
             linha ++;
+            coluna = linha;
         }else {
             coluna++;
         }
