@@ -24,6 +24,7 @@ public:
     bool** adjacencia; //Matriz de adjacencia binária
 
     static Grafo * gerarGrafoOrdemCem();
+    bool* gerarRepresentacaoVetorial();
 
 
 

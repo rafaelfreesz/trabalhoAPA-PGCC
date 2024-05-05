@@ -10,6 +10,11 @@ int main()
 
     Grafo* grafo = Grafo::gerarGrafoOrdemCem();
 
+    bool* grafoVetorizado = grafo->gerarRepresentacaoVetorial();
+
+
+    delete grafoVetorizado;
+
     grafo->imprimirGrafo();
 
     return 0;

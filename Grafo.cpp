@@ -53,12 +53,14 @@ void Grafo::imprimirGrafo() {
     }
 
 }
-
+//TODO Depois voltar pra ordem = 100 e grau = fórmula
 Grafo * Grafo::gerarGrafoOrdemCem() {
 
-    Grafo* grafo = new Grafo(100);
+    int ordem = 5;
 
-    int grau = 100*(1+rand()%10);
+    Grafo* grafo = new Grafo(ordem);
+
+    int grau = 5;// ordem*(1+rand()%10);
 
     for(int i=0;i<grau;i++) {
         int a = rand()%grafo->ordem;
@@ -73,4 +75,29 @@ Grafo * Grafo::gerarGrafoOrdemCem() {
     }
 
     return grafo;
+}
+
+//Transforma a matriz de adjacencias binária em um vetor com a parte triangular superior
+bool * Grafo::gerarRepresentacaoVetorial() {
+
+    int nVetor = (this->ordem*(this->ordem+1))/2;
+
+    bool* grafoVetorial = new bool[nVetor];
+
+    int linha=0;
+    int coluna=0;
+
+    for(int i=0;i<nVetor;i++) {
+        grafoVetorial[i]=this->adjacencia[linha][coluna];
+
+        if(coluna == (this->ordem - linha-1)) {
+            coluna = 0;
+            linha ++;
+        }else {
+            coluna++;
+        }
+
+    }
+
+    return grafoVetorial;
 }
