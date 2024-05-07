@@ -11,6 +11,7 @@ class Utils {
 
 public:
     static bool grafoVetorialEhValido(Grafo* g, bool* v);
+    static bool graficoMatricialEhValido(Grafo *g, bool **m);
     static void imprimirGrafo(Grafo* g);
     static void imprimirGrafoVetorial(Grafo* g,bool * v);
 

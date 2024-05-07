@@ -92,8 +92,27 @@ bool * Grafo::gerarRepresentacaoVetorial() {
 }
 
 //Converte uma posição i,j da matriz de adjacencia em sua respectiva posição no vetor
-int Grafo::getIndiceRepresentacaoVetorial(bool *vetor, int i, int j) {
+int Grafo::getIndiceRepresentacaoVetorial(int i, int j) {
     int linha = min(i,j);
     int coluna = max(i,j);
     return ((2*this->ordem - linha + 1)*linha/2 + (coluna-linha));
+}
+
+//Gerando a representação matricial a partir de um vetor
+bool ** Grafo::gerarRepresentacaoMatricial(bool *v) {
+
+    bool** m = new bool*[this->ordem];
+
+    for(int i=0;i<this->ordem;i++) {
+       m[i] = new bool[this->ordem];
+    }
+
+    for(int i=0;i<this->ordem;i++) {
+        for(int j = i; j <this->ordem;j++) {
+            m[j][i] = m[i][j] = v[getIndiceRepresentacaoVetorial(i,j)];
+        }
+    }
+
+    return m;
+
 }

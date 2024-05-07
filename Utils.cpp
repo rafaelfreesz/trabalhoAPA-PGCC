@@ -12,11 +12,11 @@ bool Utils::grafoVetorialEhValido(Grafo *g, bool *v) {
 
     for(int i=0;i<g->ordem;i++) {
         for(int j = 0 ; j<g->ordem; j++) {
-            if(g->adjacencia[i][j] != v[g->getIndiceRepresentacaoVetorial(v,i,j)]) {
-                cout<<"***** M["<<i<<","<<j<<"] != V["<<g->getIndiceRepresentacaoVetorial(v,i,j)<<"] = "<<g->adjacencia[i][j]<<endl;
+            if(g->adjacencia[i][j] != v[g->getIndiceRepresentacaoVetorial(i,j)]) {
+                cout<<"***** M["<<i<<","<<j<<"] != V["<<g->getIndiceRepresentacaoVetorial(i,j)<<"] = "<<g->adjacencia[i][j]<<endl;
                 valido = false;
             }else {
-                cout<<"M["<<i<<","<<j<<"] = V["<<g->getIndiceRepresentacaoVetorial(v,i,j)<<"] = "<<g->adjacencia[i][j]<<endl;
+                cout<<"M["<<i<<","<<j<<"] = V["<<g->getIndiceRepresentacaoVetorial(i,j)<<"] = "<<g->adjacencia[i][j]<<endl;
             }
         }
     }
@@ -24,6 +24,33 @@ bool Utils::grafoVetorialEhValido(Grafo *g, bool *v) {
     cout<<"--------------------"<<endl<<endl;
 
      return valido;
+}
+
+bool Utils::graficoMatricialEhValido(Grafo *g, bool **m) {
+    cout<<"--------Testando representacao matricial:--------"<<endl;
+    bool valido = true;
+    string sm1,sm2;
+    for(int i=0;i<g->ordem;i++) {
+        sm1="| ";
+        sm2="| ";
+        for(int j = 0 ; j<g->ordem; j++) {
+            if(g->adjacencia[i][j] != m[i][j]) {
+                sm1+="*";
+                sm2+="*";
+                valido = false;
+            }
+
+            sm1+=to_string(g->adjacencia[i][j])+" ";
+            sm2+=to_string(m[i][j])+" ";
+        }
+        sm1+="|";
+        sm2+="|";
+        cout<<sm1<<"     "<<sm2<<endl;
+    }
+
+    cout<<"--------------------"<<endl<<endl;
+
+    return valido;
 }
 
 //Imprime na tela um dado Grafo

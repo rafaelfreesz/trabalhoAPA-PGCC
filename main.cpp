@@ -18,13 +18,27 @@ int main()
     Utils::imprimirGrafoVetorial(grafo,grafoVetorial);
 
     if(!Utils::grafoVetorialEhValido(grafo,grafoVetorial)) {
-        cout<<"Grafo vetorial gerado nao e valido"<<endl;
+        cout<<"Grafo vetor gerado nao e valido"<<endl;
         exit(1);
     }else {
-        cout<<"Grafo vetorial ok"<<endl;
+        cout<<"Grafo vetor ok"<<endl;
+    }
+
+    bool** matriz = grafo->gerarRepresentacaoMatricial(grafoVetorial);
+
+    if(!Utils::graficoMatricialEhValido(grafo,matriz)) {
+        cout<<"Grafo matriz gerado nao e valido"<<endl;
+        exit(1);
+    }else {
+        cout<<"Grafo matriz ok"<<endl;
     }
 
 
+
+    for(int i=0;i<grafo->ordem;i++) {
+        delete [] matriz[i];
+    }
+    delete [] matriz;
     delete [] grafoVetorial;
     delete grafo;
     return 0;
