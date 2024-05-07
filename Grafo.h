@@ -16,7 +16,6 @@ public:
 
     void incluirAresta(int i, int j);
 
-    void imprimirGrafo();
 
     //Atributos
     int grau; //quantidade de arestas próprias
@@ -25,6 +24,7 @@ public:
 
     static Grafo * gerarGrafoOrdemCem();
     bool* gerarRepresentacaoVetorial();
+    int getIndiceRepresentacaoVetorial(bool* vetor, int i, int j);
 
 
 

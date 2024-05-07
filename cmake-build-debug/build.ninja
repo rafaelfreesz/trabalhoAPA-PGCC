@@ -61,6 +61,12 @@ build CMakeFiles/prj_trabalho.dir/Grafo.cpp.obj: CXX_COMPILER__prj_trabalho_unsc
   OBJECT_DIR = CMakeFiles\prj_trabalho.dir
   OBJECT_FILE_DIR = CMakeFiles\prj_trabalho.dir
 
+build CMakeFiles/prj_trabalho.dir/Utils.cpp.obj: CXX_COMPILER__prj_trabalho_unscanned_Debug D$:/Estudos/Mestrado/Disicplinas/APA/prj_trabalho/Utils.cpp || cmake_object_order_depends_target_prj_trabalho
+  DEP_FILE = CMakeFiles\prj_trabalho.dir\Utils.cpp.obj.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles\prj_trabalho.dir
+  OBJECT_FILE_DIR = CMakeFiles\prj_trabalho.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target prj_trabalho
@@ -69,7 +75,7 @@ build CMakeFiles/prj_trabalho.dir/Grafo.cpp.obj: CXX_COMPILER__prj_trabalho_unsc
 #############################################
 # Link the executable prj_trabalho.exe
 
-build prj_trabalho.exe: CXX_EXECUTABLE_LINKER__prj_trabalho_Debug CMakeFiles/prj_trabalho.dir/main.cpp.obj CMakeFiles/prj_trabalho.dir/Grafo.cpp.obj
+build prj_trabalho.exe: CXX_EXECUTABLE_LINKER__prj_trabalho_Debug CMakeFiles/prj_trabalho.dir/main.cpp.obj CMakeFiles/prj_trabalho.dir/Grafo.cpp.obj CMakeFiles/prj_trabalho.dir/Utils.cpp.obj
   FLAGS = -g
   LINK_LIBRARIES = -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\prj_trabalho.dir

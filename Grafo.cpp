@@ -40,19 +40,8 @@ void Grafo::incluirAresta(int i, int j) {
 
 }
 
-void Grafo::imprimirGrafo() {
-    cout<<"Ordem: "<<this->ordem<<endl;
-    cout<<"Grau: "<<this->grau<<endl;
-    cout<<"Matriz de Adjacencia: "<<endl;
 
-    for(int i=0;i<this->ordem;i++) {
-        for (int j=0;j<this->ordem;j++) {
-            cout<<this->adjacencia[i][j]<<" ";
-        }
-        cout<<endl;
-    }
 
-}
 //TODO Depois voltar pra ordem = 100 e grau = fórmula
 Grafo * Grafo::gerarGrafoOrdemCem() {
 
@@ -100,4 +89,11 @@ bool * Grafo::gerarRepresentacaoVetorial() {
     }
 
     return grafoVetorial;
+}
+
+//Converte uma posição i,j da matriz de adjacencia em sua respectiva posição no vetor
+int Grafo::getIndiceRepresentacaoVetorial(bool *vetor, int i, int j) {
+    int linha = min(i,j);
+    int coluna = max(i,j);
+    return ((2*this->ordem - linha + 1)*linha/2 + (coluna-linha));
 }
