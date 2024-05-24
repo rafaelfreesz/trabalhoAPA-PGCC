@@ -4,6 +4,8 @@
 
 #include "Grafo.h"
 
+#include <cmath>
+
 Grafo::Grafo(int ordem) {
     this->grau = 0;
     this->ordem = ordem;
@@ -92,11 +94,47 @@ bool * Grafo::gerarRepresentacaoVetorial() {
 }
 
 //Converte uma posição i,j da matriz de adjacencia em sua respectiva posição no vetor
-int Grafo::getIndiceRepresentacaoVetorial(int i, int j) {
+int Grafo::getIndiceRepresentacaoVetorialPA(int i, int j) {
     int linha = min(i,j);
     int coluna = max(i,j);
     return ((2*this->ordem - linha + 1)*linha/2 + (coluna-linha));
 }
+
+int Grafo::getIndiceRepresentacaoVetorialIt(int i, int j) {
+    int linha = min(i,j);
+    int coluna = max(i,j);
+
+    int k = coluna;
+    for(int l=0; l<linha; l++) {
+        k+=this->ordem-l-1;
+    }
+    return k;
+}
+
+int Grafo::getIndiceRepresentacaoVetorialRec(int i, int j, int l) {
+    int linha = min(i,j);
+    int coluna = max(i,j);
+
+    if(linha==l) {
+        return coluna;
+    }else {
+        return this->ordem-l-1+getIndiceRepresentacaoVetorialRec(linha,coluna,l+1);
+    }
+}
+
+void Grafo::getIndiceRepresentacaoMatricialSQ(bool *vetor, int k, int *coordenadas) {
+    int linha =  (1 - 2*this->ordem + sqrt(4*this->ordem^2 + 4*this->ordem - 8*k)) / 2;
+    int coluna = this->ordem - linha * (linha + 1)/2;
+
+    coordenadas[0]=linha;
+    coordenadas[1]=coluna;
+
+}
+
+int * Grafo::getIndiceRepresentacaoMatricialIt(bool *vetor, int k) {
+
+}
+
 
 //Gerando a representação matricial a partir de um vetor
 bool ** Grafo::gerarRepresentacaoMatricial(bool *v) {
@@ -109,7 +147,7 @@ bool ** Grafo::gerarRepresentacaoMatricial(bool *v) {
 
     for(int i=0;i<this->ordem;i++) {
         for(int j = i; j <this->ordem;j++) {
-            m[j][i] = m[i][j] = v[getIndiceRepresentacaoVetorial(i,j)];
+            m[j][i] = m[i][j] = v[getIndiceRepresentacaoVetorialPA(i,j)];
         }
     }
 

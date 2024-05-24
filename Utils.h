@@ -10,10 +10,12 @@
 class Utils {
 
 public:
-    static bool grafoVetorialEhValido(Grafo* g, bool* v);
-    static bool graficoMatricialEhValido(Grafo *g, bool **m);
+    static bool grafoVetorEhValido(Grafo* g, bool* v);
+    static bool graficoMatricialEhValido(Grafo *g, bool ** m);
+    static bool conversoesDeIndiceMatrizVetorSaoValidas(Grafo *g, bool *v);
+    static bool conversoesDeIndiceVetorMatrizSaoValidas(Grafo *g, bool *v);
     static void imprimirGrafo(Grafo* g);
-    static void imprimirGrafoVetorial(Grafo* g,bool * v);
+    static void imprimirGrafoVetor(Grafo* g,bool * v);
 
 
 };

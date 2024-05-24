@@ -5,18 +5,18 @@
 #include "Utils.h"
 
 //Testa se a versão vetoria do grafo atende as expectativas
-bool Utils::grafoVetorialEhValido(Grafo *g, bool *v) {
+bool Utils::grafoVetorEhValido(Grafo *g, bool *v) {
 
     cout<<"--------Testando representacao vetoria:--------"<<endl;
     bool valido = true;
 
     for(int i=0;i<g->ordem;i++) {
         for(int j = 0 ; j<g->ordem; j++) {
-            if(g->adjacencia[i][j] != v[g->getIndiceRepresentacaoVetorial(i,j)]) {
-                cout<<"***** M["<<i<<","<<j<<"] != V["<<g->getIndiceRepresentacaoVetorial(i,j)<<"] = "<<g->adjacencia[i][j]<<endl;
+            if(g->adjacencia[i][j] != v[g->getIndiceRepresentacaoVetorialPA(i,j)]) {
+                cout<<"***** M["<<i<<","<<j<<"] != V["<<g->getIndiceRepresentacaoVetorialPA(i,j)<<"] = "<<g->adjacencia[i][j]<<endl;
                 valido = false;
             }else {
-                cout<<"M["<<i<<","<<j<<"] = V["<<g->getIndiceRepresentacaoVetorial(i,j)<<"] = "<<g->adjacencia[i][j]<<endl;
+                cout<<"M["<<i<<","<<j<<"] = V["<<g->getIndiceRepresentacaoVetorialPA(i,j)<<"] = "<<g->adjacencia[i][j]<<endl;
             }
         }
     }
@@ -53,6 +53,74 @@ bool Utils::graficoMatricialEhValido(Grafo *g, bool **m) {
     return valido;
 }
 
+bool Utils::conversoesDeIndiceMatrizVetorSaoValidas(Grafo *g, bool *v) {
+
+    cout<<"--------Testando validade dos converdores de indice de Matriz pra Vetor (valor(indice do vetor)) ---------"<<endl;
+
+    cout<<"Indice | MAT | PA IT REC | iPA iIT iREC"<<endl;
+    bool valido = true;
+    for(int i=0;i<g->ordem;i++) {
+
+        for(int j=0; j<g->ordem; j++) {
+            cout<<"("+to_string(i)+","+to_string(j)+")      "+to_string(g->adjacencia[i][j])+"    ";
+
+            if(g->adjacencia[i][j] != v[g->getIndiceRepresentacaoVetorialPA(i,j)]) {
+                cout<<"*";
+                valido = false;
+            }
+            cout<<to_string(v[g->getIndiceRepresentacaoVetorialPA(i,j)])+" ";
+
+            if(g->adjacencia[i][j] != v[g->getIndiceRepresentacaoVetorialIt(i,j)]) {
+                cout<<"*";
+                valido = false;
+            }
+            cout<<to_string(v[g->getIndiceRepresentacaoVetorialIt(i,j)])+ " ";
+
+            if(g->adjacencia[i][j] != v[g->getIndiceRepresentacaoVetorialRec(i,j,0)]) {
+                cout<<"*";
+                valido = false;
+            }
+            cout<<to_string(v[g->getIndiceRepresentacaoVetorialRec(i,j,0)])+"       ";
+
+            cout<<to_string(g->getIndiceRepresentacaoVetorialPA(i,j))+" ";
+            cout<<to_string(g->getIndiceRepresentacaoVetorialIt(i,j))+" ";
+            cout<<to_string(g->getIndiceRepresentacaoVetorialRec(i,j,0));
+
+            cout<<endl;
+
+        }
+
+    }
+
+    cout<<"--------------------"<<endl<<endl;
+    return valido;
+}
+
+bool Utils::conversoesDeIndiceVetorMatrizSaoValidas(Grafo *g, bool *v) {
+
+    cout<<"--------Testando validade dos converdores de indice de Vetor pra Matriz (valor(indice do vetor)) ---------"<<endl;
+
+    cout<<"Indice | VET | SQ IT | iSQ iIT"<<endl;
+    bool valido = true;
+    int nVetor = (g->ordem*(g->ordem+1))/2;
+
+    int coordenadas[2];
+    for(int k=0;k<nVetor;k++) {
+        cout<<to_string(k)+" ";
+        g->getIndiceRepresentacaoMatricialSQ(v,k, coordenadas);
+
+        if(g->adjacencia[coordenadas[0]][coordenadas[1]] != v[k]) {
+            cout<<"*";
+            valido = false;
+        }
+        cout<<"("+to_string(g->adjacencia[coordenadas[0]][coordenadas[1]])+" ";
+        cout<<endl;
+    }
+
+    cout<<"--------------------"<<endl<<endl;
+    return valido;
+}
+
 //Imprime na tela um dado Grafo
 void Utils::imprimirGrafo(Grafo *g) {
     cout<<"--------GRAFO--------"<<endl;
@@ -72,8 +140,8 @@ void Utils::imprimirGrafo(Grafo *g) {
 }
 
 //Imprime na tela a versão vetorial da matriz de adjacencia;
-void Utils::imprimirGrafoVetorial(Grafo *g, bool *v) {
-    cout<<"--------REPRESENTAÇÃO VETORIAL DO GRAFO--------"<<endl;
+void Utils::imprimirGrafoVetor(Grafo *g, bool *v) {
+    cout<<"--------REPRESENTACAO VETORIAL DO GRAFO--------"<<endl;
     
     int nVetor = (g->ordem*(g->ordem+1))/2;
     
