@@ -122,7 +122,7 @@ int Grafo::getIndiceRepresentacaoVetorialRec(int i, int j, int l) {
     }
 }
 
-void Grafo::getIndiceRepresentacaoMatricialSQ(bool *vetor, int k, int *coordenadas) {
+void Grafo::getIndiceRepresentacaoMatricialSQ(int k, int *coordenadas) {
     int linha =  (1 - 2*this->ordem + sqrt(4*this->ordem^2 + 4*this->ordem - 8*k)) / 2;
     int coluna = this->ordem - linha * (linha + 1)/2;
 
@@ -131,7 +131,20 @@ void Grafo::getIndiceRepresentacaoMatricialSQ(bool *vetor, int k, int *coordenad
 
 }
 
-int * Grafo::getIndiceRepresentacaoMatricialIt(bool *vetor, int k) {
+void Grafo::getIndiceRepresentacaoMatricialIt(int k, int *coordenadas) {
+    int i = 0;
+    int fator = this->ordem;
+
+    while(k-fator>=0) {
+        k-=fator;
+        fator--;
+        i++;
+    }
+
+    int j=i+k;
+
+    coordenadas[0]=i;
+    coordenadas[1]=j;
 
 }
 

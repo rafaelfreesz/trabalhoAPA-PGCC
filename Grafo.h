@@ -28,8 +28,8 @@ public:
     int getIndiceRepresentacaoVetorialPA(int i, int j); //Questão 6 a utilizando PA
     int getIndiceRepresentacaoVetorialIt(int i, int j); //Questão 6 b utilizando Iteratividade
     int getIndiceRepresentacaoVetorialRec(int i, int j, int l); //Questão 6 c utilizando PA
-    void getIndiceRepresentacaoMatricialSQ(bool* vetor, int k, int *coordenadas); //Questão 7 a utilizando SQ
-    int* getIndiceRepresentacaoMatricialIt(bool* vetor, int k); //Questão 7 b utilizando Iteratividade
+    void getIndiceRepresentacaoMatricialSQ(int k, int *coordenadas); //Questão 7 a utilizando SQ
+    void getIndiceRepresentacaoMatricialIt(int k, int *coordenadas); //Questão 7 b utilizando Iteratividade
 
 
 

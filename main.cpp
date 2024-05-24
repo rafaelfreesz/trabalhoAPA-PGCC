@@ -42,14 +42,14 @@ int main()
 
     cout<<"Conversores de indice de Matriz para Vetor ok"<<endl<<endl;
 
-/*
+
     if(!Utils::conversoesDeIndiceVetorMatrizSaoValidas(grafo,vetor)) {
         cout<<"Conversores Matriz Vetor nao sao validos"<<endl;
         exit(1);
     }else {
         cout<<"Conversores Vetor Matriz ok"<<endl;
     }
-*/
+
 
 
     for(int i=0;i<grafo->ordem;i++) {
