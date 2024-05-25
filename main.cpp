@@ -56,11 +56,18 @@ int main()
     cout<<"Gerando tres matrizes simetricas: A, B, C=(A+B)"<<endl<<endl;
     int** mA=Utils::geraMatrizSimetricaOrdemK(k,0,5);
     int** mB=Utils::geraMatrizSimetricaOrdemK(k,0,5);
-    int** mC=Utils::somarMatrizes(k,mA,mB);
-
-
     Utils::imprimirMatriz(k,mA, "m1");
     Utils::imprimirMatriz(k,mB, "m2");
+
+    cout<<"Soma das Matrizes"<<endl;
+    int** mC=Utils::somarMatrizes(k,mA,mB);
+    Utils::imprimirOperacaoDeMatrizes(mA,mB,mC,k, '+');
+    cout<<endl;
+
+    cout<<"Multiplicacao das Matrizes"<<endl;
+    int** mD=Utils::multiplicarMatrizes(k,mA,mB);
+    Utils::imprimirOperacaoDeMatrizes(mA,mB,mD,k, '*');
+    cout<<endl;
 
 
 

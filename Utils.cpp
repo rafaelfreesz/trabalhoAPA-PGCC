@@ -229,4 +229,50 @@ int** Utils:: somarMatrizes(int k, int** mA, int** mB) {
     return mC;
 }
 
+int ** Utils::multiplicarMatrizes(int k, int **mA, int **mB) {
+    int** mC = new int*[k];
+
+    for(int i=0;i<k;i++) {
+        mC[i] = new int[k];
+        for(int j=0;j<k;j++) {
+            int s=0;
+            for(int p=0;p<k;p++) {
+                s+=mA[i][p]*mB[p][j];
+            }
+            mC[i][j] = s;
+        }
+    }
+
+    return mC;
+}
+
+void Utils::imprimirOperacaoDeMatrizes(int** mA, int** mB, int** mC, int n, char operacao) {
+    string saida="";
+    string sma,smb,smc;
+
+    for(int i=0;i<n;i++) {
+        sma=smb=smc="";
+
+        for(int j=0;j<n;j++) {
+            sma+="  "+to_string(mA[i][j]);
+            smb+="  "+to_string(mB[i][j]);
+            smc+="  "+to_string(mC[i][j]);
+
+            if(mC[i][j]<10) {smc+=" ";}
+
+            if(operacao=='+' && mC[i][j]!=(mA[i][j]+mB[i][j])) {
+                cout<<"Soma deu errado"<<endl;
+                exit(100);
+            }
+        }
+
+        if(i!=0) {
+            cout<<sma+"   "+smb+"   "+smc<<endl;
+        }else {
+            cout<<sma+"  "+operacao+smb+"  ="+smc<<endl;
+        }
+
+    }
+}
+
 

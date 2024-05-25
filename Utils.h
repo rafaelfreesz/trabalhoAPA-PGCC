@@ -22,6 +22,8 @@ public:
     static void imprimirMatriz(int k, int** m, string nome);
     static bool ehSimetrica(int k, int** m);
     static int** somarMatrizes(int k, int** mA, int** mB);
+    static int** multiplicarMatrizes(int k, int** mA, int** mB);
+    static void imprimirOperacaoDeMatrizes(int** mA, int** mB, int** mC, int n, char operacao);
 
 
 };
