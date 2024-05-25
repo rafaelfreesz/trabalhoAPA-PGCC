@@ -123,11 +123,13 @@ int Grafo::getIndiceRepresentacaoVetorialRec(int i, int j, int l) {
 }
 
 void Grafo::getIndiceRepresentacaoMatricialSQ(int k, int *coordenadas) {
-    int linha =  (1 - 2*this->ordem + sqrt(4*this->ordem^2 + 4*this->ordem - 8*k)) / 2;
-    int coluna = this->ordem - linha * (linha + 1)/2;
 
-    coordenadas[0]=linha;
-    coordenadas[1]=coluna;
+
+    int linha = (2*this->ordem+1-sqrt(4*(pow(this->ordem,2))+4*this->ordem-8*k-1))/2;
+    int coluna = k - (2 * this->ordem - linha + 1) * linha / 2 + linha;
+
+    coordenadas[0] = linha;
+    coordenadas[1] = coluna;
 
 }
 

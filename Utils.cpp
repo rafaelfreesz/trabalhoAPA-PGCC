@@ -100,7 +100,7 @@ bool Utils::conversoesDeIndiceVetorMatrizSaoValidas(Grafo *g, bool *v) {
 
     cout<<"--------Testando validade dos converdores de indice de Vetor pra Matriz (valor(indice do vetor)) ---------"<<endl;
 
-    cout<<"Indice | VET | SQ IT | iSQ     iIT"<<endl;
+    cout<<"Indice | VET | SQ      iSQ   | IT     iIT"<<endl;
     bool valido = true;
     int nVetor = (g->ordem*(g->ordem+1))/2;
 
@@ -108,15 +108,28 @@ bool Utils::conversoesDeIndiceVetorMatrizSaoValidas(Grafo *g, bool *v) {
     for(int k=0;k<nVetor;k++) {
         if(k<10){cout<<" ";}
         cout<<to_string(k);
+
+        //Testando função raiz quadrada
+        g->getIndiceRepresentacaoMatricialSQ(k,coordenadas);
+
+        if(g->adjacencia[coordenadas[0]][coordenadas[1]] != v[k]) {
+            cout<<"*";
+            valido = false;
+        }
+        cout<<"        "+to_string(v[k]);
+        cout<<"     "+to_string(g->adjacencia[coordenadas[0]][coordenadas[1]])+" ";
+        cout<<"    ("+to_string(coordenadas[0])+","+to_string(coordenadas[1])+")";
+
+        //Testando função iterativa
         g->getIndiceRepresentacaoMatricialIt(k,coordenadas);
 
         if(g->adjacencia[coordenadas[0]][coordenadas[1]] != v[k]) {
             cout<<"*";
             valido = false;
         }
-        cout<<"        "+to_string(v[k])+" ";
-        cout<<"      "+to_string(g->adjacencia[coordenadas[0]][coordenadas[1]])+" ";
-        cout<<"          ("+to_string(coordenadas[0])+","+to_string(coordenadas[1])+")";
+        cout<<"     "+to_string(g->adjacencia[coordenadas[0]][coordenadas[1]])+" ";
+        cout<<"   ("+to_string(coordenadas[0])+","+to_string(coordenadas[1])+")";
+
         cout<<endl;
     }
 
