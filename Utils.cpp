@@ -218,6 +218,27 @@ void Utils::imprimirOperacaoDeMatrizes(Matriz *mA, Matriz *mB, Matriz *mC, char 
     }
 }
 
+void Utils::imprimirOperacaoDeMatrizesVetorizadas(int ordem, int *mVA, int *mVB, int *mVC, char operacao) {
+
+    int nVetor = (ordem*(ordem+1))/2;
+
+    for(int j=0;j<nVetor;j++) {
+        cout<<to_string(mVA[j])<<" ";
+    }
+
+    cout<<endl<<operacao<<endl;
+
+    for(int j=0;j<nVetor;j++) {
+        cout<<to_string(mVB[j])<<" ";
+    }
+
+    cout<<endl<<"="<<endl;
+
+    for(int j=0;j<nVetor;j++) {
+        cout<<to_string(mVC[j])<<" ";
+    }
+}
+
 
 void Utils::imprimirMatrizVetorizada(int *v, int n) {
 

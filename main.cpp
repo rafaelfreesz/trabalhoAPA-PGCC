@@ -76,6 +76,12 @@ int main()
 
     Utils::imprimirMatrizVetorizada(mVA,k);
     Utils::imprimirMatrizVetorizada(mVB,k);
+    cout<<endl;
+
+    cout<<"Somando matrizes representadas por vetores"<<endl;
+    int* mVC = Matriz::somarMatrizesVetorizadas(k,mVA, mVB);
+    Utils::imprimirOperacaoDeMatrizesVetorizadas(k,mVA,mVB,mVC,'+');
+
 
     cout<<endl;
 

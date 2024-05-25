@@ -13,12 +13,15 @@ public:
     ~Matriz();
 
     bool ehSimetrica(); //Verifica se a matriz eh simetrica
+    int* gerarRepresentacaoVetorial();
 
     static Matriz *geraMatrizSimetricaOrdemK(int n, int min, int max);
     static Matriz* somarMatrizes(Matriz* mA, Matriz* mB);
     static Matriz *multiplicarMatrizes(Matriz *mA, Matriz *mB);
+    static int* somarMatrizesVetorizadas(int ordem, int* mVA, int* mVB);
+    static int* multiplicarMatrizesVetorizadas(int ordem, int* mVA, int *mVB);
+    static int getIndiceRepresentacaoVetorialPA(int i, int j, int n);
 
-    int* gerarRepresentacaoVetorial();
 
 
     int n;

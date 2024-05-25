@@ -70,6 +70,36 @@ Matriz *Matriz::multiplicarMatrizes(Matriz *mA, Matriz *mB) {
     return mC;
 }
 
+int * Matriz::somarMatrizesVetorizadas(int ordem, int *mVA, int *mVB) {
+    int* mVC = new int[(ordem*(ordem+1))/2];
+
+    for(int i=0;i<ordem;i++) {
+        for(int j=0;j<ordem;j++) {
+            mVC[getIndiceRepresentacaoVetorialPA(i,j, ordem)]
+            = mVA[getIndiceRepresentacaoVetorialPA(i,j, ordem)]
+            + mVB[getIndiceRepresentacaoVetorialPA(i,j, ordem)];
+        }
+    }
+
+    return mVC;
+}
+
+int * Matriz::multiplicarMatrizesVetorizadas(int ordem, int *mVA, int *mVB) {
+    int* mVC = new int[(ordem*(ordem+1))/2];
+
+    for(int i=0;i<ordem;i++) {
+        for(int j=0;j<ordem;j++) {
+            int s=0;
+            for(int p=0;p<ordem;p++) {
+                s+=mVA[getIndiceRepresentacaoVetorialPA(i,p, ordem)]*mVB[getIndiceRepresentacaoVetorialPA(p,j, ordem)];
+            }
+            mVC[getIndiceRepresentacaoVetorialPA(i,j, ordem)] = s;
+        }
+    }
+
+    return mVC;
+}
+
 int * Matriz::gerarRepresentacaoVetorial() {
     int nVetor = (n*(n+1))/2;
 
@@ -91,4 +121,10 @@ int * Matriz::gerarRepresentacaoVetorial() {
     }
 
     return matrizVetorizada;
+}
+
+int Matriz::getIndiceRepresentacaoVetorialPA(int i, int j, int n) {
+    int linha = min(i,j);
+    int coluna = max(i,j);
+    return ((2*n - linha + 1)*linha/2 + (coluna-linha));
 }
