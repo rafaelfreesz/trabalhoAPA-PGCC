@@ -8,4 +8,6 @@ add_executable(prj_trabalho main.cpp
         Grafo.h
         Utils.cpp
         Utils.h
+        Matriz.cpp
+        Matriz.h
 )

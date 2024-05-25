@@ -5,11 +5,13 @@
 #ifndef UTILS_H
 #define UTILS_H
 #include "Grafo.h"
+#include "Matriz.h"
 
 
 class Utils {
 
 public:
+    //Funções para grafos
     static bool grafoVetorEhValido(Grafo* g, bool* v);
     static bool graficoMatricialEhValido(Grafo *g, bool ** m);
     static bool conversoesDeIndiceMatrizVetorSaoValidas(Grafo *g, bool *v);
@@ -17,13 +19,10 @@ public:
     static void imprimirGrafo(Grafo* g);
     static void imprimirGrafoVetor(Grafo* g,bool * v);
 
-    static int** geraMatrizSimetricaOrdemK(int k,int min, int max);
-
-    static void imprimirMatriz(int k, int** m, string nome);
-    static bool ehSimetrica(int k, int** m);
-    static int** somarMatrizes(int k, int** mA, int** mB);
-    static int** multiplicarMatrizes(int k, int** mA, int** mB);
-    static void imprimirOperacaoDeMatrizes(int** mA, int** mB, int** mC, int n, char operacao);
+    //Funções para Matrizes
+    static void imprimirMatriz(Matriz* m, string nome);
+    static void imprimirOperacaoDeMatrizes(Matriz *mA, Matriz *mB, Matriz *mC, char operacao);
+    static void imprimirMatrizVetorizada(int *v, int n);
 
 
 };

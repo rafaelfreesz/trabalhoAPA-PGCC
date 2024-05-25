@@ -169,34 +169,17 @@ void Utils::imprimirGrafoVetor(Grafo *g, bool *v) {
     cout<<"--------------------"<<endl<<endl;
 }
 
-int ** Utils::geraMatrizSimetricaOrdemK(int k, int min, int max) {
-    int** m = new int*[k];
 
-    for(int i=0;i<k;i++) {
-        m[i]=new int[k];
-    }
-
-    for(int i=0;i<k;i++) {
-        for(int j=i;j<k;j++) {
-            m[i][j]= min+rand()%(max-min);
-            m[j][i]= m[i][j];
-        }
-    }
-
-    return m;
-
-}
-
-void Utils::imprimirMatriz(int k, int **m, string nome) {
+void Utils::imprimirMatriz(Matriz* m, string nome) {
     cout<<"---------- Matriz "+nome+" ----------"<<endl;
-    if(ehSimetrica(k,m)) {
+    if(m->ehSimetrica()) {
         cout<<"EH SIMETRICA"<<endl;
     }else {
         cout<<"NAO EH SIMETRICA"<<endl<<endl;
     }
-    for(int i=0;i<k;i++) {
-        for (int j=0;j<k;j++) {
-            cout<<m[i][j]<<" ";
+    for(int i=0;i<m->n;i++) {
+        for (int j=0;j<m->n;j++) {
+            cout<<m->m[i][j]<<" ";
         }
         cout<<endl;
     }
@@ -204,63 +187,23 @@ void Utils::imprimirMatriz(int k, int **m, string nome) {
     cout<<"--------------------"<<endl<<endl;
 }
 
-bool Utils::ehSimetrica(int k, int **m) {
-    for(int i=0;i<k;i++) {
-        for(int j=i+1;j<k;j++) {
-            if(m[i][j]!=m[j][i]) {
-                return false;
-            }
-        }
-    }
-    return true;
-}
 
-int** Utils:: somarMatrizes(int k, int** mA, int** mB) {
 
-    int** mC = new int*[k];
-
-    for(int i=0;i<k;i++) {
-        mC[i] = new int[k];
-        for(int j=0;j<k;j++) {
-            mC[i][j] = mA[i][j] + mB[i][j];
-        }
-    }
-
-    return mC;
-}
-
-int ** Utils::multiplicarMatrizes(int k, int **mA, int **mB) {
-    int** mC = new int*[k];
-
-    for(int i=0;i<k;i++) {
-        mC[i] = new int[k];
-        for(int j=0;j<k;j++) {
-            int s=0;
-            for(int p=0;p<k;p++) {
-                s+=mA[i][p]*mB[p][j];
-            }
-            mC[i][j] = s;
-        }
-    }
-
-    return mC;
-}
-
-void Utils::imprimirOperacaoDeMatrizes(int** mA, int** mB, int** mC, int n, char operacao) {
+void Utils::imprimirOperacaoDeMatrizes(Matriz *mA, Matriz *mB, Matriz *mC, char operacao) {
     string saida="";
     string sma,smb,smc;
 
-    for(int i=0;i<n;i++) {
+    for(int i=0;i<mA->n;i++) {
         sma=smb=smc="";
 
-        for(int j=0;j<n;j++) {
-            sma+="  "+to_string(mA[i][j]);
-            smb+="  "+to_string(mB[i][j]);
-            smc+="  "+to_string(mC[i][j]);
+        for(int j=0;j<mA->n;j++) {
+            sma+="  "+to_string(mA->m[i][j]);
+            smb+="  "+to_string(mB->m[i][j]);
+            smc+="  "+to_string(mC->m[i][j]);
 
-            if(mC[i][j]<10) {smc+=" ";}
+            if(mC->m[i][j]<10) {smc+=" ";}
 
-            if(operacao=='+' && mC[i][j]!=(mA[i][j]+mB[i][j])) {
+            if(operacao=='+' && mC->m[i][j]!=(mA->m[i][j]+mB->m[i][j])) {
                 cout<<"Soma deu errado"<<endl;
                 exit(100);
             }
@@ -273,6 +216,17 @@ void Utils::imprimirOperacaoDeMatrizes(int** mA, int** mB, int** mC, int n, char
         }
 
     }
+}
+
+
+void Utils::imprimirMatrizVetorizada(int *v, int n) {
+
+    int nVetor = (n*(n+1))/2;
+
+    for(int i=0;i<nVetor;i++) {
+        cout<<v[i]<<" ";
+    }cout<<endl;
+
 }
 
 

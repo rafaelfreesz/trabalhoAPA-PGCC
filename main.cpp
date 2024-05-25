@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Grafo.h"
+#include "Matriz.h"
 #include "Utils.h"
 
 
@@ -54,21 +55,29 @@ int main()
     int k=5;
 
     cout<<"Gerando tres matrizes simetricas: A, B, C=(A+B)"<<endl<<endl;
-    int** mA=Utils::geraMatrizSimetricaOrdemK(k,0,5);
-    int** mB=Utils::geraMatrizSimetricaOrdemK(k,0,5);
-    Utils::imprimirMatriz(k,mA, "m1");
-    Utils::imprimirMatriz(k,mB, "m2");
+    Matriz* mA=Matriz::geraMatrizSimetricaOrdemK(k,0,5);
+    Matriz* mB=Matriz::geraMatrizSimetricaOrdemK(k,0,5);
+    Utils::imprimirMatriz(mA, "m1");
+    Utils::imprimirMatriz(mB, "m2");
 
     cout<<"Soma das Matrizes"<<endl;
-    int** mC=Utils::somarMatrizes(k,mA,mB);
-    Utils::imprimirOperacaoDeMatrizes(mA,mB,mC,k, '+');
+    Matriz* mC=Matriz::somarMatrizes(mA,mB);
+    Utils::imprimirOperacaoDeMatrizes(mA,mB,mC, '+');
     cout<<endl;
 
     cout<<"Multiplicacao das Matrizes"<<endl;
-    int** mD=Utils::multiplicarMatrizes(k,mA,mB);
-    Utils::imprimirOperacaoDeMatrizes(mA,mB,mD,k, '*');
+    Matriz* mD=Matriz::multiplicarMatrizes(mA,mB);
+    Utils::imprimirOperacaoDeMatrizes(mA,mB,mD, '*');
     cout<<endl;
 
+    cout<<"Vetorizando as matrizes:"<<endl;
+    int* mVA = mA->gerarRepresentacaoVetorial();
+    int* mVB = mB->gerarRepresentacaoVetorial();
+
+    Utils::imprimirMatrizVetorizada(mVA,k);
+    Utils::imprimirMatrizVetorizada(mVB,k);
+
+    cout<<endl;
 
 
 
@@ -77,14 +86,10 @@ int main()
         delete [] matriz[i];
     }
     delete [] matriz;
-    for(int i=0;i<k;i++) {
-        delete mA[i];
-        delete mB[i];
-        delete mC[i];
-    }
-    delete [] mA;
-    delete [] mB;
-    delete [] mC;
+    delete mA;
+    delete mB;
+    delete mC;
+    delete mD;
     delete [] vetor;
     delete grafo;
     return 0;
