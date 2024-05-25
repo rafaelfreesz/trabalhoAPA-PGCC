@@ -17,6 +17,9 @@ public:
     static void imprimirGrafo(Grafo* g);
     static void imprimirGrafoVetor(Grafo* g,bool * v);
 
+    static int** geraMatrizSimetricaOrdemK(int k,int min, int max);
+    static void imprimirMatriz(int k, int** m);
+    static bool ehSimetrica(int k, int** m);
 
 };
 

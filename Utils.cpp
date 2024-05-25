@@ -168,3 +168,49 @@ void Utils::imprimirGrafoVetor(Grafo *g, bool *v) {
     
     cout<<"--------------------"<<endl<<endl;
 }
+
+int ** Utils::geraMatrizSimetricaOrdemK(int k, int min, int max) {
+    int** m = new int*[k];
+
+    for(int i=0;i<k;i++) {
+        m[i]=new int[k];
+    }
+
+    for(int i=0;i<k;i++) {
+        for(int j=i;j<k;j++) {
+            m[i][j]= min+rand()%(max-min);
+            m[j][i]= m[i][j];
+        }
+    }
+
+    return m;
+
+}
+
+void Utils::imprimirMatriz(int k, int **m) {
+    cout<<"----------Matriz----------"<<endl;
+    if(ehSimetrica(k,m)) {
+        cout<<"EH SIMETRICA"<<endl<<endl;
+    }else {
+        cout<<"NAO EH SIMETRICA"<<endl<<endl;
+    }
+    for(int i=0;i<k;i++) {
+        for (int j=0;j<k;j++) {
+            cout<<m[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+
+    cout<<"--------------------"<<endl<<endl;
+}
+
+bool Utils::ehSimetrica(int k, int **m) {
+    for(int i=0;i<k;i++) {
+        for(int j=i+1;j<k;j++) {
+            if(m[i][j]!=m[j][i]) {
+                return false;
+            }
+        }
+    }
+    return true;
+}

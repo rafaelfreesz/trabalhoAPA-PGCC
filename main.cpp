@@ -50,12 +50,24 @@ int main()
         cout<<"Conversores Vetor Matriz ok"<<endl;
     }
 
+    int k=5;
+    int** mA=Utils::geraMatrizSimetricaOrdemK(k,0,10);
+    int** mB=Utils::geraMatrizSimetricaOrdemK(k,0,10);
+    Utils::imprimirMatriz(k,mA);
+    Utils::imprimirMatriz(k,mB);
+
 
 
     for(int i=0;i<grafo->ordem;i++) {
         delete [] matriz[i];
     }
     delete [] matriz;
+    for(int i=0;i<k;i++) {
+        delete mA[i];
+        delete mB[i];
+    }
+    delete [] mA;
+    delete [] mB;
     delete [] vetor;
     delete grafo;
     return 0;
