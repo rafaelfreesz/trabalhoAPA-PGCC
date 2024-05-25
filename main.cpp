@@ -46,15 +46,23 @@ int main()
     if(!Utils::conversoesDeIndiceVetorMatrizSaoValidas(grafo,vetor)) {
         cout<<"Conversores Matriz Vetor nao sao validos"<<endl;
         exit(1);
-    }else {
-        cout<<"Conversores Vetor Matriz ok"<<endl;
     }
 
+    cout<<"Conversores Vetor Matriz ok"<<endl<<endl;
+
+    //Gerando duas matrizes e sua soma
     int k=5;
-    int** mA=Utils::geraMatrizSimetricaOrdemK(k,0,10);
-    int** mB=Utils::geraMatrizSimetricaOrdemK(k,0,10);
-    Utils::imprimirMatriz(k,mA);
-    Utils::imprimirMatriz(k,mB);
+
+    cout<<"Gerando tres matrizes simetricas: A, B, C=(A+B)"<<endl<<endl;
+    int** mA=Utils::geraMatrizSimetricaOrdemK(k,0,5);
+    int** mB=Utils::geraMatrizSimetricaOrdemK(k,0,5);
+    int** mC=Utils::somarMatrizes(k,mA,mB);
+
+
+    Utils::imprimirMatriz(k,mA, "m1");
+    Utils::imprimirMatriz(k,mB, "m2");
+
+
 
 
 
@@ -65,9 +73,11 @@ int main()
     for(int i=0;i<k;i++) {
         delete mA[i];
         delete mB[i];
+        delete mC[i];
     }
     delete [] mA;
     delete [] mB;
+    delete [] mC;
     delete [] vetor;
     delete grafo;
     return 0;

@@ -187,10 +187,10 @@ int ** Utils::geraMatrizSimetricaOrdemK(int k, int min, int max) {
 
 }
 
-void Utils::imprimirMatriz(int k, int **m) {
-    cout<<"----------Matriz----------"<<endl;
+void Utils::imprimirMatriz(int k, int **m, string nome) {
+    cout<<"---------- Matriz "+nome+" ----------"<<endl;
     if(ehSimetrica(k,m)) {
-        cout<<"EH SIMETRICA"<<endl<<endl;
+        cout<<"EH SIMETRICA"<<endl;
     }else {
         cout<<"NAO EH SIMETRICA"<<endl<<endl;
     }
@@ -214,3 +214,19 @@ bool Utils::ehSimetrica(int k, int **m) {
     }
     return true;
 }
+
+int** Utils:: somarMatrizes(int k, int** mA, int** mB) {
+
+    int** mC = new int*[k];
+
+    for(int i=0;i<k;i++) {
+        mC[i] = new int[k];
+        for(int j=0;j<k;j++) {
+            mC[i][j] = mA[i][j] + mB[i][j];
+        }
+    }
+
+    return mC;
+}
+
+

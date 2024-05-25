@@ -18,8 +18,11 @@ public:
     static void imprimirGrafoVetor(Grafo* g,bool * v);
 
     static int** geraMatrizSimetricaOrdemK(int k,int min, int max);
-    static void imprimirMatriz(int k, int** m);
+
+    static void imprimirMatriz(int k, int** m, string nome);
     static bool ehSimetrica(int k, int** m);
+    static int** somarMatrizes(int k, int** mA, int** mB);
+
 
 };
 
