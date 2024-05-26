@@ -22,7 +22,7 @@ public:
     int ordem; //quantidade de vertices;
     bool** adjacencia; //Matriz de adjacencia binária
 
-    static Grafo * gerarGrafoOrdemCem(); //Questão 1
+    static Grafo * gerarGrafoOrdemK(int ordem); //Questão 1
     bool* gerarRepresentacaoVetorial(); //Questão 3
     bool** gerarRepresentacaoMatricial(bool* v); //Questão 5
     int getIndiceRepresentacaoVetorialPA(int i, int j); //Questão 6 a utilizando PA

@@ -13,7 +13,7 @@ int main()
     srand(seed);
 
     cout<<"1- Gerando grafo de ordem 100...";
-    Grafo* grafo = Grafo::gerarGrafoOrdemCem();
+    Grafo* grafo = Grafo::gerarGrafoOrdemK(10);
     cout<<"ok"<<endl;
 
     u->imprimirGrafo(grafo);
@@ -64,11 +64,12 @@ int main()
     Matriz* mA=Matriz::geraMatrizSimetricaOrdemK(o,0,5);
     cout<<"ok"<<endl;
 
+    u->imprimirMatriz(mA, "mA");
+
     cout<<"9- Gerando matriz simetricas mB...";
     Matriz* mB=Matriz::geraMatrizSimetricaOrdemK(o,0,5);
     cout<<"ok"<<endl;
 
-    u->imprimirMatriz(mA, "mA");
     u->imprimirMatriz(mB, "mB");
 
     cout<<"10- Somando as matrizes...";
@@ -83,15 +84,15 @@ int main()
 
     cout<<"12- Vetorizando as matrizes...";
     int* mVA = mA->gerarRepresentacaoVetorial();
+    u->imprimirMatrizVetorizada(mVA,o, "mA");
     int* mVB = mB->gerarRepresentacaoVetorial();
+    u->imprimirMatrizVetorizada(mVB,o, "mB");
     cout<<"ok"<<endl;
 
-    u->imprimirMatrizVetorizada(mVA,o);
-    u->imprimirMatrizVetorizada(mVB,o);
 
     cout<<"13- Somando matrizes representadas por vetores...";
     int* mVC = Matriz::somarMatrizesVetorizadas(o,mVA, mVB);
-    u->imprimirOperacaoDeMatrizesVetorizadas(o,mVA,mVB,mVC,'+');
+    u->imprimirSomaDeMatrizesVetorizadas(o,mVA,mVB,mVC);
     cout<<"ok"<<endl;
 
     cout<<"14- Avaliando validade da operacao de Soma...";
@@ -103,7 +104,7 @@ int main()
 
     cout<<"15- Multiplicando matrizes representadas por vetores...";
     int* mVD = Matriz::multiplicarMatrizesVetorizadas(o,mVA, mVB);
-    u->imprimirOperacaoDeMatrizesVetorizadas(o,mVA,mVB,mVD,'*');
+    u->imprimirMultiplicacaoDeMatrizesVetorizadas(o,mVA,mVB,mVD);
     cout<<"ok"<<endl;
 
     cout<<"16- Avaliando validade da operacao de Multiplicacao...";

@@ -45,9 +45,7 @@ void Grafo::incluirAresta(int i, int j) {
 
 
 //TODO Depois voltar pra ordem = 100 e grau = fórmula
-Grafo * Grafo::gerarGrafoOrdemCem() {
-
-    int ordem = 5;
+Grafo * Grafo::gerarGrafoOrdemK(int ordem) {
 
     Grafo* grafo = new Grafo(ordem);
 

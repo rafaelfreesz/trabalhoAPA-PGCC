@@ -27,8 +27,9 @@ public:
     //Funções para Matrizes
     void imprimirMatriz(Matriz* m, string nome);
     void imprimirOperacaoDeMatrizes(Matriz *mA, Matriz *mB, Matriz *mC, char operacao);
-    void imprimirOperacaoDeMatrizesVetorizadas(int ordem, int*mVA, int*mVB, int*mVC, char operacao);
-    void imprimirMatrizVetorizada(int *v, int n);
+    void imprimirSomaDeMatrizesVetorizadas(int ordem, int*mVA, int*mVB, int*mVC);
+    void imprimirMultiplicacaoDeMatrizesVetorizadas(int ordem, int*mVA, int*mVB, int*mVC);
+    void imprimirMatrizVetorizada(int *v, int n, string nome);
     bool EhValidaSomaMatrizVetorial(Matriz *mA, Matriz *mB, Matriz *mC, int *mVA, int *mVB, int *mVC);
     bool EhValidaMultiplicacaoMatrizVetorial(Matriz *mC, int *mVC);
 

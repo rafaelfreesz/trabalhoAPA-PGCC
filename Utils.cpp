@@ -4,6 +4,8 @@
 
 #include "Utils.h"
 
+#include <cmath>
+
 Utils::Utils(long seed) {
     int k=0;
     this->file.open("OUTPUT_"+to_string(k)+".TXT", ios_base::in);
@@ -25,7 +27,8 @@ Utils::~Utils() {
 //Testa se a versão vetoria do grafo atende as expectativas
 bool Utils::grafoVetorEhValido(Grafo *g, bool *v) {
 
-    this->file<<"--------Testando representacao vetoria:--------"<<endl;
+    this->file<<"--------TESTANDO REPRESENTAÇÃO VETORIAL DO GRAFO :--------"<<endl;
+    this->file<<"--------(i,j) | k | v[k]  :--------"<<endl;
     bool valido = true;
 
     for(int i=0;i<g->ordem;i++) {
@@ -38,14 +41,18 @@ bool Utils::grafoVetorEhValido(Grafo *g, bool *v) {
             }
         }
     }
+    if(valido) {
+        this->file<<"--------------------VALIDO"<<endl<<endl;
+    }else {
+        this->file<<"--------------------NAO VALIDO"<<endl<<endl;
+    }
 
-    this->file<<"--------------------"<<endl<<endl;
 
      return valido;
 }
 
 bool Utils::graficoMatricialEhValido(Grafo *g, bool **m) {
-    this->file<<"--------Testando representacao matricial:--------"<<endl;
+    this->file<<"--------REPRESENTACAO MATRICIAL GERADA A PARTIR DA REPRESENTACAO VETORIAL:--------"<<endl;
     bool valido = true;
     string sm1,sm2;
     for(int i=0;i<g->ordem;i++) {
@@ -65,43 +72,49 @@ bool Utils::graficoMatricialEhValido(Grafo *g, bool **m) {
         sm2+="|";
         this->file<<sm1<<"     "<<sm2<<endl;
     }
-
-    this->file<<"--------------------"<<endl<<endl;
+    if(valido) {
+        this->file<<"--------------------VALIDO"<<endl<<endl;
+    }else {
+        this->file<<"--------------------NAO VALIDO"<<endl<<endl;
+    }
 
     return valido;
 }
 
 bool Utils::conversoesDeIndiceMatrizVetorSaoValidas(Grafo *g, bool *v) {
 
-    this->file<<"--------Testando validade dos converdores de indice de Matriz pra Vetor (valor(indice do vetor)) ---------"<<endl;
+    this->file<<"--------TESTANDO CONVERSÃO M(i,j) -> V[k] ---------"<<endl;
 
-    this->file<<"Indice | MAT | PA IT REC | iPA iIT iREC"<<endl;
+
+    this->file<<"Coordenadas;Valor na Matriz;Valor do PA; Valor IT; Valor REC;Indice do do PA; Indice do IT; Indice do REC"<<endl;
     bool valido = true;
+
+
     for(int i=0;i<g->ordem;i++) {
 
         for(int j=0; j<g->ordem; j++) {
-            this->file<<"("+to_string(i)+","+to_string(j)+")      "+to_string(g->adjacencia[i][j])+"    ";
+            this->file<<"("+to_string(i)+","+to_string(j)+");"+to_string(g->adjacencia[i][j])+";";
 
             if(g->adjacencia[i][j] != v[g->getIndiceRepresentacaoVetorialPA(i,j)]) {
                 this->file<<"*";
                 valido = false;
             }
-            this->file<<to_string(v[g->getIndiceRepresentacaoVetorialPA(i,j)])+" ";
+            this->file<<to_string(v[g->getIndiceRepresentacaoVetorialPA(i,j)])+";";
 
             if(g->adjacencia[i][j] != v[g->getIndiceRepresentacaoVetorialIt(i,j)]) {
                 this->file<<"*";
                 valido = false;
             }
-            this->file<<to_string(v[g->getIndiceRepresentacaoVetorialIt(i,j)])+ " ";
+            this->file<<to_string(v[g->getIndiceRepresentacaoVetorialIt(i,j)])+ ";";
 
             if(g->adjacencia[i][j] != v[g->getIndiceRepresentacaoVetorialRec(i,j,0)]) {
                 this->file<<"*";
                 valido = false;
             }
-            this->file<<to_string(v[g->getIndiceRepresentacaoVetorialRec(i,j,0)])+"       ";
+            this->file<<to_string(v[g->getIndiceRepresentacaoVetorialRec(i,j,0)])+";";
 
-            this->file<<to_string(g->getIndiceRepresentacaoVetorialPA(i,j))+" ";
-            this->file<<to_string(g->getIndiceRepresentacaoVetorialIt(i,j))+" ";
+            this->file<<to_string(g->getIndiceRepresentacaoVetorialPA(i,j))+";";
+            this->file<<to_string(g->getIndiceRepresentacaoVetorialIt(i,j))+";";
             this->file<<to_string(g->getIndiceRepresentacaoVetorialRec(i,j,0));
 
             this->file<<endl;
@@ -109,23 +122,25 @@ bool Utils::conversoesDeIndiceMatrizVetorSaoValidas(Grafo *g, bool *v) {
         }
 
     }
-
-    this->file<<"--------------------"<<endl<<endl;
+    if(valido) {
+        this->file<<"--------------------VALIDO"<<endl<<endl;
+    }else {
+        this->file<<"--------------------NAO VALIDO"<<endl<<endl;
+    }
     return valido;
 }
 
 bool Utils::conversoesDeIndiceVetorMatrizSaoValidas(Grafo *g, bool *v) {
 
-    this->file<<"--------Testando validade dos converdores de indice de Vetor pra Matriz (valor(indice do vetor)) ---------"<<endl;
+    this->file<<"--------TESTANDO CONVERSAO  V[k] ->M(i,j) ---------"<<endl;
 
-    this->file<<"Indice | VET | SQ      iSQ   | IT     iIT"<<endl;
+    this->file<<"Indice;Valor no vetor;Valor por SQ;Indice por SQ;Valor por IT;Indice por iIT"<<endl;
     bool valido = true;
     int nVetor = (g->ordem*(g->ordem+1))/2;
 
     int coordenadas[2];
     for(int k=0;k<nVetor;k++) {
-        if(k<10){this->file<<" ";}
-        this->file<<to_string(k);
+        this->file<<to_string(k)+";";
 
         //Testando função raiz quadrada
         g->getIndiceRepresentacaoMatricialSQ(k,coordenadas);
@@ -134,9 +149,9 @@ bool Utils::conversoesDeIndiceVetorMatrizSaoValidas(Grafo *g, bool *v) {
             this->file<<"*";
             valido = false;
         }
-        this->file<<"        "+to_string(v[k]);
-        this->file<<"     "+to_string(g->adjacencia[coordenadas[0]][coordenadas[1]])+" ";
-        this->file<<"    ("+to_string(coordenadas[0])+","+to_string(coordenadas[1])+")";
+        this->file<<to_string(v[k])+";";
+        this->file<<to_string(g->adjacencia[coordenadas[0]][coordenadas[1]])+";";
+        this->file<<"("+to_string(coordenadas[0])+","+to_string(coordenadas[1])+");";
 
         //Testando função iterativa
         g->getIndiceRepresentacaoMatricialIt(k,coordenadas);
@@ -145,13 +160,16 @@ bool Utils::conversoesDeIndiceVetorMatrizSaoValidas(Grafo *g, bool *v) {
             this->file<<"*";
             valido = false;
         }
-        this->file<<"     "+to_string(g->adjacencia[coordenadas[0]][coordenadas[1]])+" ";
-        this->file<<"   ("+to_string(coordenadas[0])+","+to_string(coordenadas[1])+")";
+        this->file<<to_string(g->adjacencia[coordenadas[0]][coordenadas[1]])+";";
+        this->file<<"("+to_string(coordenadas[0])+","+to_string(coordenadas[1])+");";
 
         this->file<<endl;
     }
-
-    this->file<<"--------------------"<<endl<<endl;
+    if(valido) {
+        this->file<<"--------------------VALIDO"<<endl<<endl;
+    }else {
+        this->file<<"--------------------NAO VALIDO"<<endl<<endl;
+    }
     return valido;
 }
 
@@ -189,12 +207,8 @@ void Utils::imprimirGrafoVetor(Grafo *g, bool *v) {
 
 
 void Utils::imprimirMatriz(Matriz* m, string nome) {
-    this->file<<"---------- Matriz "+nome+" ----------"<<endl;
-    if(m->ehSimetrica()) {
-        this->file<<"EH SIMETRICA"<<endl;
-    }else {
-        this->file<<"NAO EH SIMETRICA"<<endl<<endl;
-    }
+    this->file<<"---------- MATRIZ SIMÉTRICA "+nome+" GERADA----------"<<endl;
+
     for(int i=0;i<m->n;i++) {
         for (int j=0;j<m->n;j++) {
             this->file<<m->m[i][j]<<" ";
@@ -202,12 +216,23 @@ void Utils::imprimirMatriz(Matriz* m, string nome) {
         this->file<<endl;
     }
 
-    this->file<<"--------------------"<<endl<<endl;
+    this->file<<"--------------------";
+    if(m->ehSimetrica()) {
+        this->file<<"EH SIMETRICA"<<endl<<endl;
+    }else {
+        this->file<<"NAO EH SIMETRICA"<<endl<<endl;
+    }
 }
 
 
 
 void Utils::imprimirOperacaoDeMatrizes(Matriz *mA, Matriz *mB, Matriz *mC, char operacao) {
+
+    if(operacao=='+') {
+        this->file<<"----------RESULTADO DA SOMA DAS MATRIZES----------"<<endl;
+    }else {
+        this->file<<"----------RESULTADO DA MULTIPLICACAO DAS MATRIZES----------"<<endl;
+    }
     string saida="";
     string sma,smb,smc;
 
@@ -215,9 +240,9 @@ void Utils::imprimirOperacaoDeMatrizes(Matriz *mA, Matriz *mB, Matriz *mC, char 
         sma=smb=smc="";
 
         for(int j=0;j<mA->n;j++) {
-            sma+="  "+to_string(mA->m[i][j]);
-            smb+="  "+to_string(mB->m[i][j]);
-            smc+="  "+to_string(mC->m[i][j]);
+            sma+=" "+to_string(mA->m[i][j]);
+            smb+=" "+to_string(mB->m[i][j]);
+            smc+=" "+to_string(mC->m[i][j]);
 
             if(mC->m[i][j]<10) {smc+=" ";}
 
@@ -234,17 +259,25 @@ void Utils::imprimirOperacaoDeMatrizes(Matriz *mA, Matriz *mB, Matriz *mC, char 
         }
 
     }
+
+    this->file<<"--------------------MATRIZ RESULTANTE ";
+    if(mC->ehSimetrica()) {
+        this->file<<"EH SIMETRICA"<<endl<<endl;
+    }else {
+        this->file<<"NAO EH SIMETRICA"<<endl<<endl;
+    }
 }
 
-void Utils::imprimirOperacaoDeMatrizesVetorizadas(int ordem, int *mVA, int *mVB, int *mVC, char operacao) {
+void Utils::imprimirSomaDeMatrizesVetorizadas(int ordem, int *mVA, int *mVB, int *mVC) {
 
+    this->file<<"----------RESULTADO DA SOMA DAS MATRIZES VETORIZADAS----------"<<endl;
     int nVetor = (ordem*(ordem+1))/2;
 
     for(int j=0;j<nVetor;j++) {
         this->file<<to_string(mVA[j])<<" ";
     }
 
-    this->file<<endl<<operacao<<endl;
+    this->file<<endl<<"+"<<endl;
 
     for(int j=0;j<nVetor;j++) {
         this->file<<to_string(mVB[j])<<" ";
@@ -255,33 +288,62 @@ void Utils::imprimirOperacaoDeMatrizesVetorizadas(int ordem, int *mVA, int *mVB,
     for(int j=0;j<nVetor;j++) {
         this->file<<to_string(mVC[j])<<" ";
     }
+    this->file<<endl<<"----------"<<endl<<endl;
+}
+
+void Utils::imprimirMultiplicacaoDeMatrizesVetorizadas(int ordem, int *mVA, int *mVB, int *mVC) {
+
+    this->file<<"----------RESULTADO DA MULTIPLICACAO DAS MATRIZES VETORIZADAS----------"<<endl;
+    int nVetorSim = (ordem*(ordem+1))/2;
+    int nVetor = ordem*ordem;
+
+    for(int j=0;j<nVetorSim;j++) {
+        this->file<<to_string(mVA[j])<<" ";
+    }
+
+    this->file<<endl<<"*"<<endl;
+
+    for(int j=0;j<nVetorSim;j++) {
+        this->file<<to_string(mVB[j])<<" ";
+    }
+
+    this->file<<endl<<"="<<endl;
+
+    for(int j=0;j<nVetor;j++) {
+        this->file<<to_string(mVC[j])<<" ";
+    }
+    this->file<<endl<<"----------"<<endl<<endl;
 }
 
 
-void Utils::imprimirMatrizVetorizada(int *v, int n) {
+void Utils::imprimirMatrizVetorizada(int *v, int n, string nome) {
 
+    this->file<<"----------VERSAO VETORIZADA DA MATRIZ "+nome+"----------"<<endl;
     int nVetor = (n*(n+1))/2;
 
     for(int i=0;i<nVetor;i++) {
         this->file<<v[i]<<" ";
     }this->file<<endl;
 
+    this->file<<"----------"<<endl<<endl;
+
 }
 
 bool Utils::EhValidaSomaMatrizVetorial(Matriz *mA, Matriz *mB, Matriz *mC, int *mVA, int *mVB, int *mVC) {
     bool ehValido=true;
-    this->file<<"Coord M | Ind V | mA | mVA | mB | mVB | mC | mVC "<<endl;
+    this->file<<"------------TESTANDO RESULTADO DA SOMA DAS MATRIZES VETORIAIS --------------"<<endl;
+    this->file<<"Indice M[i,j];Indices V;Valor mA;Valor mVA;Valor mB;Valor mVB;Valor mC;Valor mVC "<<endl;
 
     for(int i=0;i<mA->n;i++) {
         for(int j=0;j<mA->n;j++) {
-            string s=" ("+to_string(i)+","+to_string(j)+") ";
-            s+=to_string(Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n))+" ";
-            s+=to_string(mA->m[i][j])+" ";
-            s+=to_string(mVA[Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n)])+" ";
-            s+=to_string(mB->m[i][j])+" ";
-            s+=to_string(mVB[Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n)])+" ";
-            s+=to_string(mC->m[i][j])+" ";
-            s+=to_string(mVC[Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n)])+" ";
+            string s="("+to_string(i)+","+to_string(j)+");";
+            s+=to_string(Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n))+";";
+            s+=to_string(mA->m[i][j])+";";
+            s+=to_string(mVA[Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n)])+";";
+            s+=to_string(mB->m[i][j])+";";
+            s+=to_string(mVB[Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n)])+";";
+            s+=to_string(mC->m[i][j])+";";
+            s+=to_string(mVC[Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n)])+";";
 
             this->file<<s<<endl;
 
@@ -295,20 +357,28 @@ bool Utils::EhValidaSomaMatrizVetorial(Matriz *mA, Matriz *mB, Matriz *mC, int *
         }
     }
 
+    this->file<<"--------------------";
+    if(ehValido) {
+        this->file<<"VALIDO"<<endl<<endl;
+    }else {
+        this->file<<"NAO VALIDO"<<endl<<endl;
+    }
+
 
     return ehValido;
 }
 
 bool Utils::EhValidaMultiplicacaoMatrizVetorial(Matriz *mC, int *mVC){
     bool ehValido=true;
-    this->file<<"Coord M | Ind V |  mC | mVC "<<endl;
+    this->file<<"------------TESTANDO RESULTADO DO PRODUTO DAS MATRIZES VETORIAIS --------------"<<endl;
+    this->file<<"Indice M[i,j];Indices V;Valor mC;Valor mVC"<<endl;
 
     for(int i=0;i<mC->n;i++) {
         for(int j=0;j<mC->n;j++) {
-            string s=" ("+to_string(i)+","+to_string(j)+") ";
-            s+=to_string(Matriz::getIndiceRepresentacaoVetorialNaoSimetrica(i,j,mC->n))+" ";
-            s+=to_string(mC->m[i][j])+" ";
-            s+=to_string(mVC[Matriz::getIndiceRepresentacaoVetorialNaoSimetrica(i,j,mC->n)])+" ";
+            string s="("+to_string(i)+","+to_string(j)+");";
+            s+=to_string(Matriz::getIndiceRepresentacaoVetorialNaoSimetrica(i,j,mC->n))+";";
+            s+=to_string(mC->m[i][j])+";";
+            s+=to_string(mVC[Matriz::getIndiceRepresentacaoVetorialNaoSimetrica(i,j,mC->n)])+";";
 
             this->file<<s<<endl;
 
@@ -319,7 +389,12 @@ bool Utils::EhValidaMultiplicacaoMatrizVetorial(Matriz *mC, int *mVC){
 
         }
     }
-
+    this->file<<"--------------------";
+    if(ehValido) {
+        this->file<<"VALIDO"<<endl<<endl;
+    }else {
+        this->file<<"NAO VALIDO"<<endl<<endl;
+    }
 
     return ehValido;
 }
