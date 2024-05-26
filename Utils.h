@@ -6,26 +6,35 @@
 #define UTILS_H
 #include "Grafo.h"
 #include "Matriz.h"
-
+#include <fstream>
 
 class Utils {
 
 public:
+
+    Utils(long seed);
+    ~Utils();
+
+
     //Funções para grafos
-    static bool grafoVetorEhValido(Grafo* g, bool* v);
-    static bool graficoMatricialEhValido(Grafo *g, bool ** m);
-    static bool conversoesDeIndiceMatrizVetorSaoValidas(Grafo *g, bool *v);
-    static bool conversoesDeIndiceVetorMatrizSaoValidas(Grafo *g, bool *v);
-    static void imprimirGrafo(Grafo* g);
-    static void imprimirGrafoVetor(Grafo* g,bool * v);
+    bool grafoVetorEhValido(Grafo* g, bool* v);
+    bool graficoMatricialEhValido(Grafo *g, bool ** m);
+    bool conversoesDeIndiceMatrizVetorSaoValidas(Grafo *g, bool *v);
+    bool conversoesDeIndiceVetorMatrizSaoValidas(Grafo *g, bool *v);
+    void imprimirGrafo(Grafo* g);
+    void imprimirGrafoVetor(Grafo* g,bool * v);
 
     //Funções para Matrizes
-    static void imprimirMatriz(Matriz* m, string nome);
-    static void imprimirOperacaoDeMatrizes(Matriz *mA, Matriz *mB, Matriz *mC, char operacao);
-    static void imprimirOperacaoDeMatrizesVetorizadas(int ordem, int*mVA, int*mVB, int*mVC, char operacao);
-    static void imprimirMatrizVetorizada(int *v, int n);
-    static bool EhValidaSomaMatrizVetorial(Matriz *mA, Matriz *mB, Matriz *mC, int *mVA, int *mVB, int *mVC);
-    static bool EhValidaMultiplicacaoMatrizVetorial(Matriz *mC, int *mVC);
+    void imprimirMatriz(Matriz* m, string nome);
+    void imprimirOperacaoDeMatrizes(Matriz *mA, Matriz *mB, Matriz *mC, char operacao);
+    void imprimirOperacaoDeMatrizesVetorizadas(int ordem, int*mVA, int*mVB, int*mVC, char operacao);
+    void imprimirMatrizVetorizada(int *v, int n);
+    bool EhValidaSomaMatrizVetorial(Matriz *mA, Matriz *mB, Matriz *mC, int *mVA, int *mVB, int *mVC);
+    bool EhValidaMultiplicacaoMatrizVetorial(Matriz *mC, int *mVC);
+
+private:
+    ofstream file;
+    string fileName;
 
 
 };

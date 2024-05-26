@@ -4,30 +4,48 @@
 
 #include "Utils.h"
 
+Utils::Utils(long seed) {
+    int k=0;
+    this->file.open("OUTPUT_"+to_string(k)+".TXT", ios_base::in);
+    while(this->file.is_open()) {
+        this->file.close();
+        k++;
+        this->file.open("OUTPUT_"+to_string(k)+".TXT", ios_base::in);
+    }
+    this->fileName="OUTPUT_"+to_string(k)+".TXT";
+    this->file.open("OUTPUT_"+to_string(k)+".TXT", ios_base::out);
+    this->file<<"----------RELATORIO DE RESULTADOS (SEED "+to_string(seed)+")----------"<<endl<<endl;
+}
+
+Utils::~Utils() {
+    this->file.close();
+    cout<<endl<<"----------RELATORIO EMITIDO NO ARQUIVO "+this->fileName+"----------"<<endl;
+}
+
 //Testa se a versão vetoria do grafo atende as expectativas
 bool Utils::grafoVetorEhValido(Grafo *g, bool *v) {
 
-    cout<<"--------Testando representacao vetoria:--------"<<endl;
+    this->file<<"--------Testando representacao vetoria:--------"<<endl;
     bool valido = true;
 
     for(int i=0;i<g->ordem;i++) {
         for(int j = 0 ; j<g->ordem; j++) {
             if(g->adjacencia[i][j] != v[g->getIndiceRepresentacaoVetorialPA(i,j)]) {
-                cout<<"***** M["<<i<<","<<j<<"] != V["<<g->getIndiceRepresentacaoVetorialPA(i,j)<<"] = "<<g->adjacencia[i][j]<<endl;
+                this->file<<"***** M["<<i<<","<<j<<"] != V["<<g->getIndiceRepresentacaoVetorialPA(i,j)<<"] = "<<g->adjacencia[i][j]<<endl;
                 valido = false;
             }else {
-                cout<<"M["<<i<<","<<j<<"] = V["<<g->getIndiceRepresentacaoVetorialPA(i,j)<<"] = "<<g->adjacencia[i][j]<<endl;
+                this->file<<"M["<<i<<","<<j<<"] = V["<<g->getIndiceRepresentacaoVetorialPA(i,j)<<"] = "<<g->adjacencia[i][j]<<endl;
             }
         }
     }
 
-    cout<<"--------------------"<<endl<<endl;
+    this->file<<"--------------------"<<endl<<endl;
 
      return valido;
 }
 
 bool Utils::graficoMatricialEhValido(Grafo *g, bool **m) {
-    cout<<"--------Testando representacao matricial:--------"<<endl;
+    this->file<<"--------Testando representacao matricial:--------"<<endl;
     bool valido = true;
     string sm1,sm2;
     for(int i=0;i<g->ordem;i++) {
@@ -45,146 +63,146 @@ bool Utils::graficoMatricialEhValido(Grafo *g, bool **m) {
         }
         sm1+="|";
         sm2+="|";
-        cout<<sm1<<"     "<<sm2<<endl;
+        this->file<<sm1<<"     "<<sm2<<endl;
     }
 
-    cout<<"--------------------"<<endl<<endl;
+    this->file<<"--------------------"<<endl<<endl;
 
     return valido;
 }
 
 bool Utils::conversoesDeIndiceMatrizVetorSaoValidas(Grafo *g, bool *v) {
 
-    cout<<"--------Testando validade dos converdores de indice de Matriz pra Vetor (valor(indice do vetor)) ---------"<<endl;
+    this->file<<"--------Testando validade dos converdores de indice de Matriz pra Vetor (valor(indice do vetor)) ---------"<<endl;
 
-    cout<<"Indice | MAT | PA IT REC | iPA iIT iREC"<<endl;
+    this->file<<"Indice | MAT | PA IT REC | iPA iIT iREC"<<endl;
     bool valido = true;
     for(int i=0;i<g->ordem;i++) {
 
         for(int j=0; j<g->ordem; j++) {
-            cout<<"("+to_string(i)+","+to_string(j)+")      "+to_string(g->adjacencia[i][j])+"    ";
+            this->file<<"("+to_string(i)+","+to_string(j)+")      "+to_string(g->adjacencia[i][j])+"    ";
 
             if(g->adjacencia[i][j] != v[g->getIndiceRepresentacaoVetorialPA(i,j)]) {
-                cout<<"*";
+                this->file<<"*";
                 valido = false;
             }
-            cout<<to_string(v[g->getIndiceRepresentacaoVetorialPA(i,j)])+" ";
+            this->file<<to_string(v[g->getIndiceRepresentacaoVetorialPA(i,j)])+" ";
 
             if(g->adjacencia[i][j] != v[g->getIndiceRepresentacaoVetorialIt(i,j)]) {
-                cout<<"*";
+                this->file<<"*";
                 valido = false;
             }
-            cout<<to_string(v[g->getIndiceRepresentacaoVetorialIt(i,j)])+ " ";
+            this->file<<to_string(v[g->getIndiceRepresentacaoVetorialIt(i,j)])+ " ";
 
             if(g->adjacencia[i][j] != v[g->getIndiceRepresentacaoVetorialRec(i,j,0)]) {
-                cout<<"*";
+                this->file<<"*";
                 valido = false;
             }
-            cout<<to_string(v[g->getIndiceRepresentacaoVetorialRec(i,j,0)])+"       ";
+            this->file<<to_string(v[g->getIndiceRepresentacaoVetorialRec(i,j,0)])+"       ";
 
-            cout<<to_string(g->getIndiceRepresentacaoVetorialPA(i,j))+" ";
-            cout<<to_string(g->getIndiceRepresentacaoVetorialIt(i,j))+" ";
-            cout<<to_string(g->getIndiceRepresentacaoVetorialRec(i,j,0));
+            this->file<<to_string(g->getIndiceRepresentacaoVetorialPA(i,j))+" ";
+            this->file<<to_string(g->getIndiceRepresentacaoVetorialIt(i,j))+" ";
+            this->file<<to_string(g->getIndiceRepresentacaoVetorialRec(i,j,0));
 
-            cout<<endl;
+            this->file<<endl;
 
         }
 
     }
 
-    cout<<"--------------------"<<endl<<endl;
+    this->file<<"--------------------"<<endl<<endl;
     return valido;
 }
 
 bool Utils::conversoesDeIndiceVetorMatrizSaoValidas(Grafo *g, bool *v) {
 
-    cout<<"--------Testando validade dos converdores de indice de Vetor pra Matriz (valor(indice do vetor)) ---------"<<endl;
+    this->file<<"--------Testando validade dos converdores de indice de Vetor pra Matriz (valor(indice do vetor)) ---------"<<endl;
 
-    cout<<"Indice | VET | SQ      iSQ   | IT     iIT"<<endl;
+    this->file<<"Indice | VET | SQ      iSQ   | IT     iIT"<<endl;
     bool valido = true;
     int nVetor = (g->ordem*(g->ordem+1))/2;
 
     int coordenadas[2];
     for(int k=0;k<nVetor;k++) {
-        if(k<10){cout<<" ";}
-        cout<<to_string(k);
+        if(k<10){this->file<<" ";}
+        this->file<<to_string(k);
 
         //Testando função raiz quadrada
         g->getIndiceRepresentacaoMatricialSQ(k,coordenadas);
 
         if(g->adjacencia[coordenadas[0]][coordenadas[1]] != v[k]) {
-            cout<<"*";
+            this->file<<"*";
             valido = false;
         }
-        cout<<"        "+to_string(v[k]);
-        cout<<"     "+to_string(g->adjacencia[coordenadas[0]][coordenadas[1]])+" ";
-        cout<<"    ("+to_string(coordenadas[0])+","+to_string(coordenadas[1])+")";
+        this->file<<"        "+to_string(v[k]);
+        this->file<<"     "+to_string(g->adjacencia[coordenadas[0]][coordenadas[1]])+" ";
+        this->file<<"    ("+to_string(coordenadas[0])+","+to_string(coordenadas[1])+")";
 
         //Testando função iterativa
         g->getIndiceRepresentacaoMatricialIt(k,coordenadas);
 
         if(g->adjacencia[coordenadas[0]][coordenadas[1]] != v[k]) {
-            cout<<"*";
+            this->file<<"*";
             valido = false;
         }
-        cout<<"     "+to_string(g->adjacencia[coordenadas[0]][coordenadas[1]])+" ";
-        cout<<"   ("+to_string(coordenadas[0])+","+to_string(coordenadas[1])+")";
+        this->file<<"     "+to_string(g->adjacencia[coordenadas[0]][coordenadas[1]])+" ";
+        this->file<<"   ("+to_string(coordenadas[0])+","+to_string(coordenadas[1])+")";
 
-        cout<<endl;
+        this->file<<endl;
     }
 
-    cout<<"--------------------"<<endl<<endl;
+    this->file<<"--------------------"<<endl<<endl;
     return valido;
 }
 
 //Imprime na tela um dado Grafo
 void Utils::imprimirGrafo(Grafo *g) {
-    cout<<"--------GRAFO--------"<<endl;
+    this->file<<"--------GRAFO GERADO--------"<<endl;
     
-    cout<<"Ordem: "<<g->ordem<<endl;
-    cout<<"Grau: "<<g->grau<<endl;
-    cout<<"Matriz de Adjacencia: "<<endl;
+    this->file<<"ORDEM: "<<g->ordem<<endl;
+    this->file<<"GRAU: "<<g->grau<<endl;
+    this->file<<"MATRIZ DE ADJACENCIA: "<<endl;
 
     for(int i=0;i<g->ordem;i++) {
         for (int j=0;j<g->ordem;j++) {
-            cout<<g->adjacencia[i][j]<<" ";
+            this->file<<g->adjacencia[i][j]<<" ";
         }
-        cout<<endl;
+        this->file<<endl;
     }
     
-    cout<<"--------------------"<<endl<<endl;
+    this->file<<"--------------------"<<endl<<endl;
 }
 
 //Imprime na tela a versão vetorial da matriz de adjacencia;
 void Utils::imprimirGrafoVetor(Grafo *g, bool *v) {
-    cout<<"--------REPRESENTACAO VETORIAL DO GRAFO--------"<<endl;
+    this->file<<"--------REPRESENTACAO VETORIAL DO GRAFO--------"<<endl;
     
     int nVetor = (g->ordem*(g->ordem+1))/2;
     
     for(int i=0;i<nVetor;i++) {
-        cout<<v[i]<<" ";
-    }cout<<endl;
+        this->file<<v[i]<<" ";
+    }this->file<<endl;
 
     
-    cout<<"--------------------"<<endl<<endl;
+    this->file<<"--------------------"<<endl<<endl;
 }
 
 
 void Utils::imprimirMatriz(Matriz* m, string nome) {
-    cout<<"---------- Matriz "+nome+" ----------"<<endl;
+    this->file<<"---------- Matriz "+nome+" ----------"<<endl;
     if(m->ehSimetrica()) {
-        cout<<"EH SIMETRICA"<<endl;
+        this->file<<"EH SIMETRICA"<<endl;
     }else {
-        cout<<"NAO EH SIMETRICA"<<endl<<endl;
+        this->file<<"NAO EH SIMETRICA"<<endl<<endl;
     }
     for(int i=0;i<m->n;i++) {
         for (int j=0;j<m->n;j++) {
-            cout<<m->m[i][j]<<" ";
+            this->file<<m->m[i][j]<<" ";
         }
-        cout<<endl;
+        this->file<<endl;
     }
 
-    cout<<"--------------------"<<endl<<endl;
+    this->file<<"--------------------"<<endl<<endl;
 }
 
 
@@ -204,15 +222,15 @@ void Utils::imprimirOperacaoDeMatrizes(Matriz *mA, Matriz *mB, Matriz *mC, char 
             if(mC->m[i][j]<10) {smc+=" ";}
 
             if(operacao=='+' && mC->m[i][j]!=(mA->m[i][j]+mB->m[i][j])) {
-                cout<<"Soma deu errado"<<endl;
+                this->file<<"Soma deu errado"<<endl;
                 exit(100);
             }
         }
 
         if(i!=0) {
-            cout<<sma+"   "+smb+"   "+smc<<endl;
+            this->file<<sma+"   "+smb+"   "+smc<<endl;
         }else {
-            cout<<sma+"  "+operacao+smb+"  ="+smc<<endl;
+            this->file<<sma+"  "+operacao+smb+"  ="+smc<<endl;
         }
 
     }
@@ -223,19 +241,19 @@ void Utils::imprimirOperacaoDeMatrizesVetorizadas(int ordem, int *mVA, int *mVB,
     int nVetor = (ordem*(ordem+1))/2;
 
     for(int j=0;j<nVetor;j++) {
-        cout<<to_string(mVA[j])<<" ";
+        this->file<<to_string(mVA[j])<<" ";
     }
 
-    cout<<endl<<operacao<<endl;
+    this->file<<endl<<operacao<<endl;
 
     for(int j=0;j<nVetor;j++) {
-        cout<<to_string(mVB[j])<<" ";
+        this->file<<to_string(mVB[j])<<" ";
     }
 
-    cout<<endl<<"="<<endl;
+    this->file<<endl<<"="<<endl;
 
     for(int j=0;j<nVetor;j++) {
-        cout<<to_string(mVC[j])<<" ";
+        this->file<<to_string(mVC[j])<<" ";
     }
 }
 
@@ -245,14 +263,14 @@ void Utils::imprimirMatrizVetorizada(int *v, int n) {
     int nVetor = (n*(n+1))/2;
 
     for(int i=0;i<nVetor;i++) {
-        cout<<v[i]<<" ";
-    }cout<<endl;
+        this->file<<v[i]<<" ";
+    }this->file<<endl;
 
 }
 
 bool Utils::EhValidaSomaMatrizVetorial(Matriz *mA, Matriz *mB, Matriz *mC, int *mVA, int *mVB, int *mVC) {
     bool ehValido=true;
-    cout<<"Coord M | Ind V | mA | mVA | mB | mVB | mC | mVC "<<endl;
+    this->file<<"Coord M | Ind V | mA | mVA | mB | mVB | mC | mVC "<<endl;
 
     for(int i=0;i<mA->n;i++) {
         for(int j=0;j<mA->n;j++) {
@@ -265,13 +283,13 @@ bool Utils::EhValidaSomaMatrizVetorial(Matriz *mA, Matriz *mB, Matriz *mC, int *
             s+=to_string(mC->m[i][j])+" ";
             s+=to_string(mVC[Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n)])+" ";
 
-            cout<<s<<endl;
+            this->file<<s<<endl;
 
             if(mA->m[i][j]!=mVA[Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n)] ||
                 mB->m[i][j]!=mVB[Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n)] ||
                 mC->m[i][j]!=mVC[Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n)]) {
                 ehValido = false;
-                cout<<"***"<<endl;
+                this->file<<"***"<<endl;
             }
 
         }
@@ -283,7 +301,7 @@ bool Utils::EhValidaSomaMatrizVetorial(Matriz *mA, Matriz *mB, Matriz *mC, int *
 
 bool Utils::EhValidaMultiplicacaoMatrizVetorial(Matriz *mC, int *mVC){
     bool ehValido=true;
-    cout<<"Coord M | Ind V |  mC | mVC "<<endl;
+    this->file<<"Coord M | Ind V |  mC | mVC "<<endl;
 
     for(int i=0;i<mC->n;i++) {
         for(int j=0;j<mC->n;j++) {
@@ -292,11 +310,11 @@ bool Utils::EhValidaMultiplicacaoMatrizVetorial(Matriz *mC, int *mVC){
             s+=to_string(mC->m[i][j])+" ";
             s+=to_string(mVC[Matriz::getIndiceRepresentacaoVetorialNaoSimetrica(i,j,mC->n)])+" ";
 
-            cout<<s<<endl;
+            this->file<<s<<endl;
 
             if(mC->m[i][j]!=mVC[Matriz::getIndiceRepresentacaoVetorialNaoSimetrica(i,j,mC->n)]) {
                 ehValido = false;
-                cout<<"***"<<endl;
+                this->file<<"***"<<endl;
                 }
 
         }

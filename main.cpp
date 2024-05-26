@@ -8,106 +8,110 @@ using namespace std;
 
 int main()
 {
-    srand(0);
+    long seed = 0;
+    Utils* u = new Utils(seed);
+    srand(seed);
 
+    cout<<"1- Gerando grafo de ordem 100...";
     Grafo* grafo = Grafo::gerarGrafoOrdemCem();
+    cout<<"ok"<<endl;
 
-    Utils::imprimirGrafo(grafo);
+    u->imprimirGrafo(grafo);
 
+    cout<<"2- Gerando representacao vetorial... ";
     bool* vetor = grafo->gerarRepresentacaoVetorial(); //Questão 4
+    cout<<"ok"<<endl;
 
-    Utils::imprimirGrafoVetor(grafo,vetor);
+    u->imprimirGrafoVetor(grafo,vetor);
 
-    if(!Utils::grafoVetorEhValido(grafo,vetor)) {
+    cout<<"3- Verificando representacao vetorial... ";
+    if(!u->grafoVetorEhValido(grafo,vetor)) {
         cout<<"Grafo gerado em representação vetorial nao e valido"<<endl;
         exit(1);
     }
+    cout<<"ok"<<endl;
 
-    cout<<"Grafo gerado em representacao vetorial ok"<<endl<<endl;
 
-
+    cout<<"4- Gerando representacao matricial a partir do vetor... ";
     bool** matriz = grafo->gerarRepresentacaoMatricial(vetor);
+    cout<<"ok"<<endl;
 
-    if(!Utils::graficoMatricialEhValido(grafo,matriz)) {
+    cout<<"5- Verificando representacao matricial convertida a partir do vetor... ";
+    if(!u->graficoMatricialEhValido(grafo,matriz)) {
         cout<<"Grafo gerado em matriz a partir de vetor nao e valido"<<endl;
         exit(1);
     }
+    cout<<"ok"<<endl;
 
-    cout<<"Grafo gerado em matriz a partir de vetor ok"<<endl<<endl;
-
-
-    if(!Utils::conversoesDeIndiceMatrizVetorSaoValidas(grafo,vetor)) {
+    cout<<"6- Verificando conversao de todos os indices (i,j)->k... ";
+    if(!u->conversoesDeIndiceMatrizVetorSaoValidas(grafo,vetor)) {
         cout<<"Conversores de indice de Matriz para Vetor nao sao validos"<<endl;
         exit(1);
     }
+    cout<<"ok"<<endl;
 
-    cout<<"Conversores de indice de Matriz para Vetor ok"<<endl<<endl;
-
-
-    if(!Utils::conversoesDeIndiceVetorMatrizSaoValidas(grafo,vetor)) {
+    cout<<"7- Verificando conversao de todos os indices k->(i,j)... ";
+    if(!u->conversoesDeIndiceVetorMatrizSaoValidas(grafo,vetor)) {
         cout<<"Conversores Matriz Vetor nao sao validos"<<endl;
         exit(1);
     }
+    cout<<"ok"<<endl;
 
-    cout<<"Conversores Vetor Matriz ok"<<endl<<endl;
+    //OPERAÇÕES COM MATRIZES
+    int o=5;
 
-    //Gerando duas matrizes e sua soma
-    int k=5;
+    cout<<"8- Gerando matriz simetricas mA...";
+    Matriz* mA=Matriz::geraMatrizSimetricaOrdemK(o,0,5);
+    cout<<"ok"<<endl;
 
-    cout<<"Gerando duas matrizes simetricas: mA, mB"<<endl<<endl;
-    Matriz* mA=Matriz::geraMatrizSimetricaOrdemK(k,0,5);
-    Matriz* mB=Matriz::geraMatrizSimetricaOrdemK(k,0,5);
-    Utils::imprimirMatriz(mA, "mA");
-    Utils::imprimirMatriz(mB, "mB");
+    cout<<"9- Gerando matriz simetricas mB...";
+    Matriz* mB=Matriz::geraMatrizSimetricaOrdemK(o,0,5);
+    cout<<"ok"<<endl;
 
-    cout<<"Soma das Matrizes"<<endl;
+    u->imprimirMatriz(mA, "mA");
+    u->imprimirMatriz(mB, "mB");
+
+    cout<<"10- Somando as matrizes...";
     Matriz* mC=Matriz::somarMatrizes(mA,mB);
-    Utils::imprimirOperacaoDeMatrizes(mA,mB,mC, '+');
-    cout<<endl;
+    u->imprimirOperacaoDeMatrizes(mA,mB,mC, '+');
+    cout<<"ok"<<endl;
 
-    cout<<"Multiplicacao das Matrizes"<<endl;
+    cout<<"11- Multiplicando as Matrizes...";
     Matriz* mD=Matriz::multiplicarMatrizes(mA,mB);
-    Utils::imprimirOperacaoDeMatrizes(mA,mB,mD, '*');
-    cout<<endl;
+    u->imprimirOperacaoDeMatrizes(mA,mB,mD, '*');
+    cout<<"ok"<<endl;
 
-    cout<<"Vetorizando as matrizes:"<<endl;
+    cout<<"12- Vetorizando as matrizes...";
     int* mVA = mA->gerarRepresentacaoVetorial();
     int* mVB = mB->gerarRepresentacaoVetorial();
+    cout<<"ok"<<endl;
 
-    Utils::imprimirMatrizVetorizada(mVA,k);
-    Utils::imprimirMatrizVetorizada(mVB,k);
-    cout<<endl;
+    u->imprimirMatrizVetorizada(mVA,o);
+    u->imprimirMatrizVetorizada(mVB,o);
 
-    cout<<"Somando matrizes representadas por vetores"<<endl;
-    int* mVC = Matriz::somarMatrizesVetorizadas(k,mVA, mVB);
-    Utils::imprimirOperacaoDeMatrizesVetorizadas(k,mVA,mVB,mVC,'+');
-    cout<<endl<<endl;
+    cout<<"13- Somando matrizes representadas por vetores...";
+    int* mVC = Matriz::somarMatrizesVetorizadas(o,mVA, mVB);
+    u->imprimirOperacaoDeMatrizesVetorizadas(o,mVA,mVB,mVC,'+');
+    cout<<"ok"<<endl;
 
-    cout<<"-----Avaliando validade da operacao de Soma-----"<<endl;
-    if(!Utils::EhValidaSomaMatrizVetorial(mA,mB,mC,mVA,mVB,mVC)) {
+    cout<<"14- Avaliando validade da operacao de Soma...";
+    if(!u->EhValidaSomaMatrizVetorial(mA,mB,mC,mVA,mVB,mVC)) {
         cout<<"Algum valor não é válido na conversão"<<endl;
         exit(100);
     }
-        cout<<endl<<"Soma ok!"<<endl;
+    cout<<"ok"<<endl;
 
-    cout<<endl<<endl;
+    cout<<"15- Multiplicando matrizes representadas por vetores...";
+    int* mVD = Matriz::multiplicarMatrizesVetorizadas(o,mVA, mVB);
+    u->imprimirOperacaoDeMatrizesVetorizadas(o,mVA,mVB,mVD,'*');
+    cout<<"ok"<<endl;
 
-    Utils::imprimirMatriz(mD,"md");
-    cout<<"Multiplicando matrizes representadas por vetores"<<endl;
-    int* mVD = Matriz::multiplicarMatrizesVetorizadas(k,mVA, mVB);
-    Utils::imprimirOperacaoDeMatrizesVetorizadas(k,mVA,mVB,mVD,'*');
-    cout<<endl;
-
-    cout<<"-----Avaliando validade da operacao de Multiplicacao-----"<<endl;
-    if(!Utils::EhValidaMultiplicacaoMatrizVetorial(mD,mVD)) {
+    cout<<"16- Avaliando validade da operacao de Multiplicacao...";
+    if(!u->EhValidaMultiplicacaoMatrizVetorial(mD,mVD)) {
         cout<<"Algum valor nao e valido na conversao"<<endl;
         exit(100);
     }
-    cout<<endl<<"Multiplicacao ok!"<<endl;
-
-    cout<<endl<<endl;
-
-
+    cout<<"ok"<<endl;
 
     for(int i=0;i<grafo->ordem;i++) {
         delete [] matriz[i];
@@ -123,6 +127,7 @@ int main()
     delete [] mVD;
     delete [] vetor;
     delete grafo;
+    delete u;
     return 0;
 }
 
