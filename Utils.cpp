@@ -250,4 +250,60 @@ void Utils::imprimirMatrizVetorizada(int *v, int n) {
 
 }
 
+bool Utils::EhValidaSomaMatrizVetorial(Matriz *mA, Matriz *mB, Matriz *mC, int *mVA, int *mVB, int *mVC) {
+    bool ehValido=true;
+    cout<<"Coord M | Ind V | mA | mVA | mB | mVB | mC | mVC "<<endl;
+
+    for(int i=0;i<mA->n;i++) {
+        for(int j=0;j<mA->n;j++) {
+            string s=" ("+to_string(i)+","+to_string(j)+") ";
+            s+=to_string(Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n))+" ";
+            s+=to_string(mA->m[i][j])+" ";
+            s+=to_string(mVA[Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n)])+" ";
+            s+=to_string(mB->m[i][j])+" ";
+            s+=to_string(mVB[Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n)])+" ";
+            s+=to_string(mC->m[i][j])+" ";
+            s+=to_string(mVC[Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n)])+" ";
+
+            cout<<s<<endl;
+
+            if(mA->m[i][j]!=mVA[Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n)] ||
+                mB->m[i][j]!=mVB[Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n)] ||
+                mC->m[i][j]!=mVC[Matriz::getIndiceRepresentacaoVetorialPA(i,j,mA->n)]) {
+                ehValido = false;
+                cout<<"***"<<endl;
+            }
+
+        }
+    }
+
+
+    return ehValido;
+}
+
+bool Utils::EhValidaMultiplicacaoMatrizVetorial(Matriz *mC, int *mVC){
+    bool ehValido=true;
+    cout<<"Coord M | Ind V |  mC | mVC "<<endl;
+
+    for(int i=0;i<mC->n;i++) {
+        for(int j=0;j<mC->n;j++) {
+            string s=" ("+to_string(i)+","+to_string(j)+") ";
+            s+=to_string(Matriz::getIndiceRepresentacaoVetorialNaoSimetrica(i,j,mC->n))+" ";
+            s+=to_string(mC->m[i][j])+" ";
+            s+=to_string(mVC[Matriz::getIndiceRepresentacaoVetorialNaoSimetrica(i,j,mC->n)])+" ";
+
+            cout<<s<<endl;
+
+            if(mC->m[i][j]!=mVC[Matriz::getIndiceRepresentacaoVetorialNaoSimetrica(i,j,mC->n)]) {
+                ehValido = false;
+                cout<<"***"<<endl;
+                }
+
+        }
+    }
+
+
+    return ehValido;
+}
+
 

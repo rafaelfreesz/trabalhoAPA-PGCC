@@ -21,6 +21,7 @@ public:
     static int* somarMatrizesVetorizadas(int ordem, int* mVA, int* mVB);
     static int* multiplicarMatrizesVetorizadas(int ordem, int* mVA, int *mVB);
     static int getIndiceRepresentacaoVetorialPA(int i, int j, int n);
+    static int getIndiceRepresentacaoVetorialNaoSimetrica(int i, int j, int n);
 
 
 

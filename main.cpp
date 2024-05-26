@@ -54,11 +54,11 @@ int main()
     //Gerando duas matrizes e sua soma
     int k=5;
 
-    cout<<"Gerando tres matrizes simetricas: A, B, C=(A+B)"<<endl<<endl;
+    cout<<"Gerando duas matrizes simetricas: mA, mB"<<endl<<endl;
     Matriz* mA=Matriz::geraMatrizSimetricaOrdemK(k,0,5);
     Matriz* mB=Matriz::geraMatrizSimetricaOrdemK(k,0,5);
-    Utils::imprimirMatriz(mA, "m1");
-    Utils::imprimirMatriz(mB, "m2");
+    Utils::imprimirMatriz(mA, "mA");
+    Utils::imprimirMatriz(mB, "mB");
 
     cout<<"Soma das Matrizes"<<endl;
     Matriz* mC=Matriz::somarMatrizes(mA,mB);
@@ -81,10 +81,31 @@ int main()
     cout<<"Somando matrizes representadas por vetores"<<endl;
     int* mVC = Matriz::somarMatrizesVetorizadas(k,mVA, mVB);
     Utils::imprimirOperacaoDeMatrizesVetorizadas(k,mVA,mVB,mVC,'+');
+    cout<<endl<<endl;
 
+    cout<<"-----Avaliando validade da operacao de Soma-----"<<endl;
+    if(!Utils::EhValidaSomaMatrizVetorial(mA,mB,mC,mVA,mVB,mVC)) {
+        cout<<"Algum valor não é válido na conversão"<<endl;
+        exit(100);
+    }
+        cout<<endl<<"Soma ok!"<<endl;
 
+    cout<<endl<<endl;
+
+    Utils::imprimirMatriz(mD,"md");
+    cout<<"Multiplicando matrizes representadas por vetores"<<endl;
+    int* mVD = Matriz::multiplicarMatrizesVetorizadas(k,mVA, mVB);
+    Utils::imprimirOperacaoDeMatrizesVetorizadas(k,mVA,mVB,mVD,'*');
     cout<<endl;
 
+    cout<<"-----Avaliando validade da operacao de Multiplicacao-----"<<endl;
+    if(!Utils::EhValidaMultiplicacaoMatrizVetorial(mD,mVD)) {
+        cout<<"Algum valor nao e valido na conversao"<<endl;
+        exit(100);
+    }
+    cout<<endl<<"Multiplicacao ok!"<<endl;
+
+    cout<<endl<<endl;
 
 
 
@@ -96,6 +117,10 @@ int main()
     delete mB;
     delete mC;
     delete mD;
+    delete [] mVA;
+    delete [] mVB;
+    delete [] mVC;
+    delete [] mVD;
     delete [] vetor;
     delete grafo;
     return 0;

@@ -24,6 +24,8 @@ public:
     static void imprimirOperacaoDeMatrizes(Matriz *mA, Matriz *mB, Matriz *mC, char operacao);
     static void imprimirOperacaoDeMatrizesVetorizadas(int ordem, int*mVA, int*mVB, int*mVC, char operacao);
     static void imprimirMatrizVetorizada(int *v, int n);
+    static bool EhValidaSomaMatrizVetorial(Matriz *mA, Matriz *mB, Matriz *mC, int *mVA, int *mVB, int *mVC);
+    static bool EhValidaMultiplicacaoMatrizVetorial(Matriz *mC, int *mVC);
 
 
 };

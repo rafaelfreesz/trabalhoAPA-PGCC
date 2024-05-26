@@ -85,7 +85,7 @@ int * Matriz::somarMatrizesVetorizadas(int ordem, int *mVA, int *mVB) {
 }
 
 int * Matriz::multiplicarMatrizesVetorizadas(int ordem, int *mVA, int *mVB) {
-    int* mVC = new int[(ordem*(ordem+1))/2];
+    int* mVC = new int[ordem*ordem];
 
     for(int i=0;i<ordem;i++) {
         for(int j=0;j<ordem;j++) {
@@ -93,7 +93,7 @@ int * Matriz::multiplicarMatrizesVetorizadas(int ordem, int *mVA, int *mVB) {
             for(int p=0;p<ordem;p++) {
                 s+=mVA[getIndiceRepresentacaoVetorialPA(i,p, ordem)]*mVB[getIndiceRepresentacaoVetorialPA(p,j, ordem)];
             }
-            mVC[getIndiceRepresentacaoVetorialPA(i,j, ordem)] = s;
+            mVC[getIndiceRepresentacaoVetorialNaoSimetrica(i,j, ordem)] = s;
         }
     }
 
@@ -128,3 +128,8 @@ int Matriz::getIndiceRepresentacaoVetorialPA(int i, int j, int n) {
     int coluna = max(i,j);
     return ((2*n - linha + 1)*linha/2 + (coluna-linha));
 }
+
+int Matriz::getIndiceRepresentacaoVetorialNaoSimetrica(int i, int j, int n) {
+    return i*n+j;
+}
+

@@ -51,7 +51,7 @@ Grafo * Grafo::gerarGrafoOrdemCem() {
 
     Grafo* grafo = new Grafo(ordem);
 
-    int grau = 5;// ordem*(1+rand()%10);
+    int grau =5;// ordem*(1+rand()%10);
 
     for(int i=0;i<grau;i++) {
         int a = rand()%grafo->ordem;
