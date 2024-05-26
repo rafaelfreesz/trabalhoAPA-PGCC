@@ -8,12 +8,12 @@ using namespace std;
 
 int main()
 {
-    long seed = 0;
+    long seed = clock();
     Utils* u = new Utils(seed);
     srand(seed);
 
     cout<<"1- Gerando grafo de ordem 100...";
-    Grafo* grafo = Grafo::gerarGrafoOrdemK(10);
+    Grafo* grafo = Grafo::gerarGrafoOrdemK(100);
     cout<<"ok"<<endl;
 
     u->imprimirGrafo(grafo);

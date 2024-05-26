@@ -4,6 +4,7 @@
 
 #include "Matriz.h"
 
+//Construtores e Destrutores
 Matriz::Matriz(int n) {
     this->m=new int*[n];
     for(int i=0;i<n;i++) {
@@ -19,6 +20,8 @@ Matriz::~Matriz() {
         delete[] this->m;
 }
 
+//Funcoes e Metodos
+//Retorna true se a matriz for simetrica
 bool Matriz::ehSimetrica() {
    for(int i=0;i<this->n;i++) {
        for(int j=i+1;j<this->n;j++) {
@@ -30,6 +33,7 @@ bool Matriz::ehSimetrica() {
    return true;
 }
 
+//Gera matriz de uma dada ordem k com valores entre min e max
 Matriz * Matriz::geraMatrizSimetricaOrdemK(int n, int min, int max) {
     Matriz* m = new Matriz(n);
 
@@ -42,6 +46,7 @@ Matriz * Matriz::geraMatrizSimetricaOrdemK(int n, int min, int max) {
     return m;
 }
 
+//Soma duas matrizes mA e mB
 Matriz * Matriz::somarMatrizes(Matriz *mA, Matriz *mB) {
     Matriz* mC = new Matriz(mA->n);
 
@@ -54,6 +59,7 @@ Matriz * Matriz::somarMatrizes(Matriz *mA, Matriz *mB) {
     return mC;
 }
 
+//Multiplica duas matrizes mA e mB
 Matriz *Matriz::multiplicarMatrizes(Matriz *mA, Matriz *mB) {
     Matriz* mC = new Matriz(mA->n);
 
@@ -70,6 +76,7 @@ Matriz *Matriz::multiplicarMatrizes(Matriz *mA, Matriz *mB) {
     return mC;
 }
 
+//Soma suas matrizes simetricas, dadas representações vetoriais de sua parte triangular superior
 int * Matriz::somarMatrizesVetorizadas(int ordem, int *mVA, int *mVB) {
     int* mVC = new int[(ordem*(ordem+1))/2];
 
@@ -84,6 +91,7 @@ int * Matriz::somarMatrizesVetorizadas(int ordem, int *mVA, int *mVB) {
     return mVC;
 }
 
+//Multiplica suas matrizes simetricas, dadas representações vetoriais de sua parte triangular superior
 int * Matriz::multiplicarMatrizesVetorizadas(int ordem, int *mVA, int *mVB) {
     int* mVC = new int[ordem*ordem];
 
@@ -100,6 +108,7 @@ int * Matriz::multiplicarMatrizesVetorizadas(int ordem, int *mVA, int *mVB) {
     return mVC;
 }
 
+//Transforma uma matria simetrica em sua versao vetorial triangular superior
 int * Matriz::gerarRepresentacaoVetorial() {
     int nVetor = (n*(n+1))/2;
 
@@ -123,12 +132,14 @@ int * Matriz::gerarRepresentacaoVetorial() {
     return matrizVetorizada;
 }
 
+//Transforma (i,j) em k, onde M(i,j) = V[k] e M eh simetrica através do método da PA
 int Matriz::getIndiceRepresentacaoVetorialPA(int i, int j, int n) {
     int linha = min(i,j);
     int coluna = max(i,j);
     return ((2*n - linha + 1)*linha/2 + (coluna-linha));
 }
 
+//Transforma (i,j) em k, onde M(i,j) = V[k] para matriz nao simetrica.
 int Matriz::getIndiceRepresentacaoVetorialNaoSimetrica(int i, int j, int n) {
     return i*n+j;
 }

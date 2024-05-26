@@ -14,15 +14,9 @@ public:
     Grafo(int ordem);
     ~Grafo();
 
-    void incluirAresta(int i, int j);
-
-
-    //Atributos
-    int grau; //quantidade de arestas próprias
-    int ordem; //quantidade de vertices;
-    bool** adjacencia; //Matriz de adjacencia binária
-
     static Grafo * gerarGrafoOrdemK(int ordem); //Questão 1
+
+    void incluirAresta(int i, int j);
     bool* gerarRepresentacaoVetorial(); //Questão 3
     bool** gerarRepresentacaoMatricial(bool* v); //Questão 5
     int getIndiceRepresentacaoVetorialPA(int i, int j); //Questão 6 a utilizando PA
@@ -31,11 +25,10 @@ public:
     void getIndiceRepresentacaoMatricialSQ(int k, int *coordenadas); //Questão 7 a utilizando SQ
     void getIndiceRepresentacaoMatricialIt(int k, int *coordenadas); //Questão 7 b utilizando Iteratividade
 
-
-
-
-
-
+    //Atributos
+    int grau; //quantidade de arestas próprias
+    int ordem; //quantidade de vertices;
+    bool** adjacencia; //Matriz de adjacencia binária
 
 };
 

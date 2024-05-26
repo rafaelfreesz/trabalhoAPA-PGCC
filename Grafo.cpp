@@ -6,6 +6,7 @@
 
 #include <cmath>
 
+//Construtores e Destrutores
 Grafo::Grafo(int ordem) {
     this->grau = 0;
     this->ordem = ordem;
@@ -30,6 +31,8 @@ Grafo::~Grafo() {
         delete this->adjacencia;
 }
 
+//Funções e Metodos
+//Inclui aresta entre os nos i,j
 void Grafo::incluirAresta(int i, int j) {
 
     if(i==j){ cout<<"Laço não permitido"<<endl; return; }
@@ -42,14 +45,12 @@ void Grafo::incluirAresta(int i, int j) {
 
 }
 
-
-
-//TODO Depois voltar pra ordem = 100 e grau = fórmula
+//Gera um grafo aleatorio de ordem parametrizada
 Grafo * Grafo::gerarGrafoOrdemK(int ordem) {
 
     Grafo* grafo = new Grafo(ordem);
 
-    int grau =5;// ordem*(1+rand()%10);
+    int grau =ordem*(1+rand()%10);
 
     for(int i=0;i<grau;i++) {
         int a = rand()%grafo->ordem;
@@ -66,7 +67,7 @@ Grafo * Grafo::gerarGrafoOrdemK(int ordem) {
     return grafo;
 }
 
-//Transforma a matriz de adjacencias binária em um vetor com a parte triangular superior
+//Transforma a matriz de adjacencias binária simétrica em um vetor com a parte triangular superior
 bool * Grafo::gerarRepresentacaoVetorial() {
 
     int nVetor = (this->ordem*(this->ordem+1))/2;
@@ -91,13 +92,14 @@ bool * Grafo::gerarRepresentacaoVetorial() {
     return grafoVetorial;
 }
 
-//Converte uma posição i,j da matriz de adjacencia em sua respectiva posição no vetor
+//Converte uma posição i,j da matriz de adjacencia em sua respectiva posição no vetor (mét0do da PA)
 int Grafo::getIndiceRepresentacaoVetorialPA(int i, int j) {
     int linha = min(i,j);
     int coluna = max(i,j);
     return ((2*this->ordem - linha + 1)*linha/2 + (coluna-linha));
 }
 
+//Converte uma posição i,j da matriz de adjacencia em sua respectiva posição no vetor (mét0do Iterativo)
 int Grafo::getIndiceRepresentacaoVetorialIt(int i, int j) {
     int linha = min(i,j);
     int coluna = max(i,j);
@@ -109,6 +111,7 @@ int Grafo::getIndiceRepresentacaoVetorialIt(int i, int j) {
     return k;
 }
 
+//Converte uma posição i,j da matriz de adjacencia em sua respectiva posição no vetor (mét0do Recursivo)
 int Grafo::getIndiceRepresentacaoVetorialRec(int i, int j, int l) {
     int linha = min(i,j);
     int coluna = max(i,j);
@@ -120,6 +123,7 @@ int Grafo::getIndiceRepresentacaoVetorialRec(int i, int j, int l) {
     }
 }
 
+//Converte uma posição k do vetor em sua respectiva posição i,j da matriz de adjacencia (mét0do Raiz Quadrada)
 void Grafo::getIndiceRepresentacaoMatricialSQ(int k, int *coordenadas) {
 
 
@@ -131,6 +135,7 @@ void Grafo::getIndiceRepresentacaoMatricialSQ(int k, int *coordenadas) {
 
 }
 
+//Converte uma posição k do vetor em sua respectiva posição i,j da matriz de adjacencia (mét0do Iterativo)
 void Grafo::getIndiceRepresentacaoMatricialIt(int k, int *coordenadas) {
     int i = 0;
     int fator = this->ordem;
@@ -149,7 +154,7 @@ void Grafo::getIndiceRepresentacaoMatricialIt(int k, int *coordenadas) {
 }
 
 
-//Gerando a representação matricial a partir de um vetor
+//Gerando a representação matricial a partir de sua representacao vetorial
 bool ** Grafo::gerarRepresentacaoMatricial(bool *v) {
 
     bool** m = new bool*[this->ordem];

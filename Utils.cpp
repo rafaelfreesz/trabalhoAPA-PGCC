@@ -6,6 +6,7 @@
 
 #include <cmath>
 
+//Construtores e destrutores
 Utils::Utils(long seed) {
     int k=0;
     this->file.open("OUTPUT_"+to_string(k)+".TXT", ios_base::in);
@@ -24,6 +25,7 @@ Utils::~Utils() {
     cout<<endl<<"----------RELATORIO EMITIDO NO ARQUIVO "+this->fileName+"----------"<<endl;
 }
 
+//Funcoes e Metricas
 //Testa se a versão vetoria do grafo atende as expectativas
 bool Utils::grafoVetorEhValido(Grafo *g, bool *v) {
 
@@ -51,6 +53,7 @@ bool Utils::grafoVetorEhValido(Grafo *g, bool *v) {
      return valido;
 }
 
+//Verifica se a representacao MAtricial do Grafo atende às expectativas
 bool Utils::graficoMatricialEhValido(Grafo *g, bool **m) {
     this->file<<"--------REPRESENTACAO MATRICIAL GERADA A PARTIR DA REPRESENTACAO VETORIAL:--------"<<endl;
     bool valido = true;
@@ -81,6 +84,7 @@ bool Utils::graficoMatricialEhValido(Grafo *g, bool **m) {
     return valido;
 }
 
+//Verifica se a convercao de intices M[i,j] -> V[k] sao validas
 bool Utils::conversoesDeIndiceMatrizVetorSaoValidas(Grafo *g, bool *v) {
 
     this->file<<"--------TESTANDO CONVERSÃO M(i,j) -> V[k] ---------"<<endl;
@@ -130,6 +134,7 @@ bool Utils::conversoesDeIndiceMatrizVetorSaoValidas(Grafo *g, bool *v) {
     return valido;
 }
 
+//Verifica se a convercao de intices V[k] -> M[i,j] sao validas
 bool Utils::conversoesDeIndiceVetorMatrizSaoValidas(Grafo *g, bool *v) {
 
     this->file<<"--------TESTANDO CONVERSAO  V[k] ->M(i,j) ---------"<<endl;
@@ -173,7 +178,7 @@ bool Utils::conversoesDeIndiceVetorMatrizSaoValidas(Grafo *g, bool *v) {
     return valido;
 }
 
-//Imprime na tela um dado Grafo
+//Imprime um dado Grafo
 void Utils::imprimirGrafo(Grafo *g) {
     this->file<<"--------GRAFO GERADO--------"<<endl;
     
@@ -191,7 +196,7 @@ void Utils::imprimirGrafo(Grafo *g) {
     this->file<<"--------------------"<<endl<<endl;
 }
 
-//Imprime na tela a versão vetorial da matriz de adjacencia;
+//Imprime a versão vetorial da matriz de adjacencia;
 void Utils::imprimirGrafoVetor(Grafo *g, bool *v) {
     this->file<<"--------REPRESENTACAO VETORIAL DO GRAFO--------"<<endl;
     
@@ -205,7 +210,7 @@ void Utils::imprimirGrafoVetor(Grafo *g, bool *v) {
     this->file<<"--------------------"<<endl<<endl;
 }
 
-
+//Imprime uma matriz
 void Utils::imprimirMatriz(Matriz* m, string nome) {
     this->file<<"---------- MATRIZ SIMÉTRICA "+nome+" GERADA----------"<<endl;
 
@@ -224,8 +229,7 @@ void Utils::imprimirMatriz(Matriz* m, string nome) {
     }
 }
 
-
-
+//Imprime uma operacao de matrizes
 void Utils::imprimirOperacaoDeMatrizes(Matriz *mA, Matriz *mB, Matriz *mC, char operacao) {
 
     if(operacao=='+') {
@@ -268,6 +272,7 @@ void Utils::imprimirOperacaoDeMatrizes(Matriz *mA, Matriz *mB, Matriz *mC, char 
     }
 }
 
+//Imprime uma soma de matrizes vetorizadas
 void Utils::imprimirSomaDeMatrizesVetorizadas(int ordem, int *mVA, int *mVB, int *mVC) {
 
     this->file<<"----------RESULTADO DA SOMA DAS MATRIZES VETORIZADAS----------"<<endl;
@@ -291,6 +296,7 @@ void Utils::imprimirSomaDeMatrizesVetorizadas(int ordem, int *mVA, int *mVB, int
     this->file<<endl<<"----------"<<endl<<endl;
 }
 
+//Imprime uma multiplicacao de matrizes vetorizadas
 void Utils::imprimirMultiplicacaoDeMatrizesVetorizadas(int ordem, int *mVA, int *mVB, int *mVC) {
 
     this->file<<"----------RESULTADO DA MULTIPLICACAO DAS MATRIZES VETORIZADAS----------"<<endl;
@@ -315,7 +321,7 @@ void Utils::imprimirMultiplicacaoDeMatrizesVetorizadas(int ordem, int *mVA, int 
     this->file<<endl<<"----------"<<endl<<endl;
 }
 
-
+//Imprime uma matriz vetorizada
 void Utils::imprimirMatrizVetorizada(int *v, int n, string nome) {
 
     this->file<<"----------VERSAO VETORIZADA DA MATRIZ "+nome+"----------"<<endl;
@@ -329,6 +335,7 @@ void Utils::imprimirMatrizVetorizada(int *v, int n, string nome) {
 
 }
 
+//Verifica se uma soma de matrizes vetorizadas esta correta
 bool Utils::EhValidaSomaMatrizVetorial(Matriz *mA, Matriz *mB, Matriz *mC, int *mVA, int *mVB, int *mVC) {
     bool ehValido=true;
     this->file<<"------------TESTANDO RESULTADO DA SOMA DAS MATRIZES VETORIAIS --------------"<<endl;
@@ -368,6 +375,7 @@ bool Utils::EhValidaSomaMatrizVetorial(Matriz *mA, Matriz *mB, Matriz *mC, int *
     return ehValido;
 }
 
+//Verifica se um produto de matrizes vetorizadas esta correta
 bool Utils::EhValidaMultiplicacaoMatrizVetorial(Matriz *mC, int *mVC){
     bool ehValido=true;
     this->file<<"------------TESTANDO RESULTADO DO PRODUTO DAS MATRIZES VETORIAIS --------------"<<endl;
