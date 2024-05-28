@@ -81,7 +81,7 @@ int * Matriz::somarMatrizesVetorizadas(int ordem, int *mVA, int *mVB) {
     int* mVC = new int[(ordem*(ordem+1))/2];
 
     for(int i=0;i<ordem;i++) {
-        for(int j=0;j<ordem;j++) {
+        for(int j=i;j<ordem;j++) {
             mVC[getIndiceRepresentacaoVetorialPA(i,j, ordem)]
             = mVA[getIndiceRepresentacaoVetorialPA(i,j, ordem)]
             + mVB[getIndiceRepresentacaoVetorialPA(i,j, ordem)];

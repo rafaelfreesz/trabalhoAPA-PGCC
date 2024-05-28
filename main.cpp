@@ -1,4 +1,5 @@
 #include <iostream>
+#include <time.h>
 #include "Grafo.h"
 #include "Matriz.h"
 #include "Utils.h"
@@ -8,7 +9,7 @@ using namespace std;
 
 int main()
 {
-    long seed = clock();
+    long seed =0;// clock();
     Utils* u = new Utils(seed);
     srand(seed);
 
