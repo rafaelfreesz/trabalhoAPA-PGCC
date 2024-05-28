@@ -91,7 +91,7 @@ int * Matriz::somarMatrizesVetorizadas(int ordem, int *mVA, int *mVB) {
     return mVC;
 }
 
-//Multiplica suas matrizes simetricas, dadas representações vetoriais de sua parte triangular superior
+//Multiplica duas matrizes simetricas, dadas representações vetoriais de sua parte triangular superior
 int * Matriz::multiplicarMatrizesVetorizadas(int ordem, int *mVA, int *mVB) {
     int* mVC = new int[ordem*ordem];
 

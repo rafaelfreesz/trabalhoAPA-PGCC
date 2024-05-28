@@ -10,11 +10,12 @@ Universidade Federal de Juiz de Fora
 Departamento de Ciência da Computação
 </center>
 
-<b>Discentes</b>
+Discentes</b>
 - Rafael Freesz Resende Corrêa
 - Pedro José de Sousa Filho;
 
-Docentes:</b> Raul Fonseca Neto
+<b>Docente:</b> Raul Fonseca Neto
+
 <center><b>Considerações Gerais</b></center>
 
 1. Para o referido trabalho, foram utilizadas as estruturas de dados a seguir:
@@ -355,7 +356,61 @@ Indice;Valor no vetor;Valor por SQ;Indice por SQ;Valor por IT;Indice por iIT
 
 As operações de soma e multiplicação foram aplicadas à representação vetorial da parte triangular superior de matrizes simétricas geradas aleatoriamente.
 
-    a. Soma
+As matrizes geradas estão presentes no relatório de saída entre as linhas 25278 e 25292
+
+~~~
+---------- MATRIZ SIMÉTRICA mA GERADA----------
+4 3 0 0 2 
+3 1 3 4 1 
+0 3 2 4 2 
+0 4 4 1 0 
+2 1 2 0 3 
+--------------------EH SIMETRICA
+
+---------- MATRIZ SIMÉTRICA mB GERADA----------
+3 1 0 3 0 
+1 4 0 3 1 
+0 0 2 4 1 
+3 3 4 2 4 
+0 1 1 4 1 
+--------------------EH SIMETRICA
+~~~
+
+As matrizes geradas são convertidas em vetores, como consta no relatório de saída entre as linhas 25310 e 25316
+
+~~~
+
+----------VERSAO VETORIZADA DA MATRIZ mA----------
+4 3 0 0 2 1 3 4 1 2 4 2 1 0 3 
+----------
+
+----------VERSAO VETORIZADA DA MATRIZ mB----------
+3 1 0 3 0 4 0 3 1 2 4 1 2 4 1 
+----------
+~~~
+
+A soma e a multiplicação foram respectivamente testadas com a representação original de suas matrizes, como consta entre linhas 25294 e 25308.
+
+~~~
+----------RESULTADO DA SOMA DAS MATRIZES----------
+ 4 3 0 0 2  + 3 1 0 3 0  = 7  4  0  3  2 
+ 3 1 3 4 1    1 4 0 3 1    4  5  3  7  2 
+ 0 3 2 4 2    0 0 2 4 1    0  3  4  8  3 
+ 0 4 4 1 0    3 3 4 2 4    3  7  8  3  4 
+ 2 1 2 0 3    0 1 1 4 1    2  2  3  4  4 
+--------------------MATRIZ RESULTANTE EH SIMETRICA
+
+----------RESULTADO DA MULTIPLICACAO DAS MATRIZES----------
+ 4 3 0 0 2  * 3 1 0 3 0  = 15 18 2  29 5 
+ 3 1 3 4 1    1 4 0 3 1    22 20 23 36 21
+ 0 3 2 4 2    0 0 2 4 1    15 26 22 33 23
+ 0 4 4 1 0    3 3 4 2 4    7  19 12 30 12
+ 2 1 2 0 3    0 1 1 4 1    7  9  7  29 6 
+--------------------MATRIZ RESULTANTE NAO EH SIMETRICA
+~~~
+
+
+<b>a.</b> Soma
 
 ~~~c++
 //Soma suas matrizes simetricas, dadas representações vetoriais de sua parte triangular superior
@@ -373,8 +428,61 @@ int * Matriz::somarMatrizesVetorizadas(int ordem, int *mVA, int *mVB) {
     return mVC;
 }
 ~~~
-    
-    b. Multiplicação
+
+O resultado da soma (vetor $mC$), bem como sua verificação, são realizados entre as linhas 25318 e 25353.   
+
+~~~
+----------RESULTADO DA SOMA DAS MATRIZES VETORIZADAS----------
+4 3 0 0 2 1 3 4 1 2 4 2 1 0 3 
++
+3 1 0 3 0 4 0 3 1 2 4 1 2 4 1 
+=
+7 4 0 3 2 5 3 7 2 4 8 3 3 4 4 
+----------
+
+------------TESTANDO RESULTADO DA SOMA DAS MATRIZES VETORIAIS --------------
+Indice M[i,j];Indices V;Valor mA;Valor mVA;Valor mB;Valor mVB;Valor mC;Valor mVC 
+(0,0);0;4;4;3;3;7;7;
+(0,1);1;3;3;1;1;4;4;
+(0,2);2;0;0;0;0;0;0;
+(0,3);3;0;0;3;3;3;3;
+...
+(4,2);11;2;2;1;1;3;3;
+(4,3);13;0;0;4;4;4;4;
+(4,4);14;3;3;1;1;4;4;
+--------------------VALIDO
+
+~~~
+
+A soma realizada no contexto da referida representação é feita com $n*(n-1)/2$ operaçõas, sendo $O(n^2)$.
+
+<b>b.</b> Multiplicação
 
 ~~~c++
+//Multiplica duas matrizes simetricas, dadas representações vetoriais de sua parte triangular superior
+int * Matriz::multiplicarMatrizesVetorizadas(int ordem, int *mVA, int *mVB) {
+    int* mVC = new int[ordem*ordem];
+
+    for(int i=0;i<ordem;i++) {
+        for(int j=0;j<ordem;j++) {
+            int s=0;
+            for(int p=0;p<ordem;p++) {
+                s+=mVA[getIndiceRepresentacaoVetorialPA(i,p, ordem)]*mVB[getIndiceRepresentacaoVetorialPA(p,j, ordem)];
+            }
+            mVC[getIndiceRepresentacaoVetorialNaoSimetrica(i,j, ordem)] = s;
+        }
+    }
+
+    return mVC;
+}
+~~~
+
+Para cada célula da matriz são realizados $n$ cálculos, sendo $n$ a ordem da matriz. Como são $n^2$ células, este algoritmo é $O(n^3)$.
+
+Observa-se neste caso que a matriz resultante não é necessariamente simétrica, o que torna necessária sua representação em um vetor completo de tamanho $n^2$. Para tal, a função a seguir realiza a conversão $(i,j) =>k$:
+~~~c++
+//Transforma (i,j) em k, onde M(i,j) = V[k] para matriz nao simetrica.
+int Matriz::getIndiceRepresentacaoVetorialNaoSimetrica(int i, int j, int n) {
+    return i*n+j;
+}
 ~~~
