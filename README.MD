@@ -196,7 +196,7 @@ bool ** Grafo::gerarRepresentacaoMatricial(bool *v) {
 
 A conversão das estruturas depende do preenchimento da matriz de ordem $n$. Cada posição do vetor atribui valor a dois elementos da matriz ($m[i][j]$ e $m[j][i]$), custando $2*(n*(n-1))/2$. Logo, esta algoritmo possui $O(n^2)$.
 
-A representação matricial gerada a partir do vetor é mostrada no relatório entre as linhas 10117 e 11218, sendo verificada tambem a validade da conversão.
+A representação matricial gerada a partir do vetor é mostrada no relatório entre as linhas 10117 e 10218, sendo verificada tambem a validade da conversão.
 
 ~~~
 --------REPRESENTACAO MATRICIAL GERADA A PARTIR DA REPRESENTACAO VETORIAL:--------
@@ -224,9 +224,11 @@ A representação matricial gerada a partir do vetor é mostrada no relatório e
 
 ~~~
 
+
+
 6. 
 Para tal foram criados três algoritmos:
-- Algoritmo de Progressão Aritmética (PA):
+    <b>a. Algoritmo de Progressão Aritmética (PA):</b> Neste caso, a conversão $(i,j) => k$ é obtida diretamente a partir de uma função. Logo é $O(1)$
 ~~~c++
 //Converte uma posição i,j da matriz de adjacencia em sua respectiva posição no vetor (mét0do da PA)
 int Grafo::getIndiceRepresentacaoVetorialPA(int i, int j) {
@@ -235,7 +237,7 @@ int Grafo::getIndiceRepresentacaoVetorialPA(int i, int j) {
     return ((2*this->ordem - linha + 1)*linha/2 + (coluna-linha));
 }
 ~~~
-- Algoritmo Iterativo (PA):
+<b>b. Algoritmo Iterativo (It):</b> O algoritmo depende da linha ($i$) de entrada, podendo ser, no pior caso, $n$. Logo, este algoritmo é $O(n)$. 
 ~~~c++
 //Converte uma posição i,j da matriz de adjacencia em sua respectiva posição no vetor (mét0do Iterativo)
 int Grafo::getIndiceRepresentacaoVetorialIt(int i, int j) {
@@ -249,7 +251,7 @@ int Grafo::getIndiceRepresentacaoVetorialIt(int i, int j) {
     return k;
 }
 ~~~
-- Algoritmo Recursivo (PA):
+<b>c. Algoritmo Recursivo (Rec):</b> O algoritmo atual tem desempenho análogo à sua versão iterativa. ($O(n)$).
 ~~~c++
 //Converte uma posição i,j da matriz de adjacencia em sua respectiva posição no vetor (mét0do Recursivo)
 int Grafo::getIndiceRepresentacaoVetorialRec(int i, int j, int l) {
@@ -264,4 +266,115 @@ int Grafo::getIndiceRepresentacaoVetorialRec(int i, int j, int l) {
 }
 ~~~
 
-7. 
+A avaliação dos conversores de indice  $(i,j) => k$ é feita no arquivo de saída entre as linhas 10220 e 20220. Nele, são verificados e apresentados respectivamente os índice $(i,j)$ da matriz, os valores da matriz pela sua conversão através de PA, IT e REC e tambem os seus respectivos índices convertidos.
+
+~~~
+--------TESTANDO CONVERSÃO M(i,j) -> V[k] ---------
+Coordenadas;Valor na Matriz;Valor do PA; Valor IT; Valor REC;Indice do do PA; Indice do IT; Indice do REC
+(0,0);0;0;0;0;0;0;0
+(0,1);0;0;0;0;1;1;1
+(0,2);0;0;0;0;2;2;2
+(0,3);1;1;1;1;3;3;3
+(0,4);0;0;0;0;4;4;4
+(0,5);0;0;0;0;5;5;5
+(0,6);0;0;0;0;6;6;6
+(0,7);0;0;0;0;7;7;7
+...
+(99,94);0;0;0;0;5034;5034;5034
+(99,95);0;0;0;0;5039;5039;5039
+(99,96);0;0;0;0;5043;5043;5043
+(99,97);0;0;0;0;5046;5046;5046
+(99,98);0;0;0;0;5048;5048;5048
+(99,99);0;0;0;0;5049;5049;5049
+--------------------VALIDO
+
+~~~
+
+7. Para tal foram criados dois algoritmos:
+
+    <b>a. Algoritmo Raiz Quadrada (SQ):</b> Neste caso, a conversão $k => (i,j)$ é obtida diretamente a partir de uma função. Logo é $O(1)$
+~~~c++
+//Converte uma posição k do vetor em sua respectiva posição i,j da matriz de adjacencia (mét0do Raiz Quadrada)
+void Grafo::getIndiceRepresentacaoMatricialSQ(int k, int *coordenadas) {
+
+    int linha = (2*this->ordem+1-sqrt(4*(pow(this->ordem,2))+4*this->ordem-8*k-1))/2;
+    int coluna = k - (2 * this->ordem - linha + 1) * linha / 2 + linha;
+
+    coordenadas[0] = linha;
+    coordenadas[1] = coluna;
+}
+
+~~~
+    
+<b> b. Algoritmo Iterativo (It):</b> O algoritmo depende da linha ($i$) de entrada, podendo ser, no pior caso, $n$. Logo, este algoritmo é $O(n)$.
+
+~~~c++
+//Converte uma posição k do vetor em sua respectiva posição i,j da matriz de adjacencia (mét0do Iterativo)
+void Grafo::getIndiceRepresentacaoMatricialIt(int k, int *coordenadas) {
+    int i = 0;
+    int fator = this->ordem;
+
+    while(k-fator>=0) {
+        k-=fator;
+        fator--;
+        i++;
+    }
+
+    int j=i+k;
+
+    coordenadas[0]=i;
+    coordenadas[1]=j;
+
+}
+~~~
+
+A avaliação dos conversores de indice  $(i,j) => k$ é feita no arquivo de saída entre as linhas 20224 e 20220. Nele, são verificados e apresentados respectivamente os índices $k$, $V[k]$, o valor na matriz convertido por raiz quadrada e seu respectivo índice e, por fim, o valor e o índice da matriz convertido iterativamente.
+
+~~~c++
+--------TESTANDO CONVERSAO  V[k] ->M(i,j) ---------
+Indice;Valor no vetor;Valor por SQ;Indice por SQ;Valor por IT;Indice por iIT
+0;0;0;(0,0);0;(0,0);
+1;0;0;(0,1);0;(0,1);
+2;0;0;(0,2);0;(0,2);
+3;1;1;(0,3);1;(0,3);
+4;0;0;(0,4);0;(0,4);
+5;0;0;(0,5);0;(0,5);
+6;0;0;(0,6);0;(0,6);
+
+...
+5045;0;0;(97,98);0;(97,98);
+5046;0;0;(97,99);0;(97,99);
+5047;0;0;(98,98);0;(98,98);
+5048;0;0;(98,99);0;(98,99);
+5049;0;0;(99,99);0;(99,99);
+--------------------VALIDO
+
+~~~
+
+8.
+
+As operações de soma e multiplicação foram aplicadas à representação vetorial da parte triangular superior de matrizes simétricas geradas aleatoriamente.
+
+    a. Soma
+
+~~~c++
+//Soma suas matrizes simetricas, dadas representações vetoriais de sua parte triangular superior
+int * Matriz::somarMatrizesVetorizadas(int ordem, int *mVA, int *mVB) {
+    int* mVC = new int[(ordem*(ordem+1))/2];
+
+    for(int i=0;i<ordem;i++) {
+        for(int j=i;j<ordem;j++) {
+            mVC[getIndiceRepresentacaoVetorialPA(i,j, ordem)]
+            = mVA[getIndiceRepresentacaoVetorialPA(i,j, ordem)]
+            + mVB[getIndiceRepresentacaoVetorialPA(i,j, ordem)];
+        }
+    }
+
+    return mVC;
+}
+~~~
+    
+    b. Multiplicação
+
+~~~c++
+~~~
