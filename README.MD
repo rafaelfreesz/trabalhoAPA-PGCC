@@ -213,7 +213,7 @@ A representação matricial gerada a partir do vetor é mostrada no relatório e
 ~~~
 
 
-6. <b> Implementar a função de mapeamento que a partir da entrada $(i,j)$ da matriz de adjacência de ordem $n$ acesse a posição $k$ do vetor de índices. Implementar o cálculo analítico (progressão aritmética) e também os procedimentos iterativo e recursivo.</b>
+6. <b> Implementar a função de mapeamento que a partir da entrada <i>(i,j)</i> da matriz de adjacência de ordem <i>n</i> acesse a posição <i>k</i> do vetor de índices. Implementar o cálculo analítico (progressão aritmética) e também os procedimentos iterativo e recursivo.</b>
 
 Para tal foram criados três algoritmos:
 
@@ -293,7 +293,7 @@ Coordenadas;Valor na Matriz;Valor do PA; Valor IT; Valor REC;Indice do do PA; In
 
 ~~~
 
-7. <b> Implementar a função de mapeamento inversa que a partir do índice $k$ do vetor acesse a posição $(i,j)$ da matriz de adjacência de ordem $n$. Implementar o cálculo analítico (algoritmo raiz quadrada) e também o procedimento iterativo.</b>
+7. <b> Implementar a função de mapeamento inversa que a partir do índice <i>k</i> do vetor acesse a posição <i>(i,j)</i> da matriz de adjacência de ordem <i>n</i>. Implementar o cálculo analítico (algoritmo raiz quadrada) e também o procedimento iterativo.</b>
 
 Para tal foram criados dois algoritmos:
 
