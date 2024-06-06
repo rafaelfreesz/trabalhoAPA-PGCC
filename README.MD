@@ -75,7 +75,7 @@ Grafo * Grafo::gerarGrafoOrdemK(int ordem) {
 }
 ~~~
 
-O algoritmo em questão varia de acordo com a quantidade de arestas $o$, onde $n\leq o\leq 100n$, onde $n$ é a ordem do grafo. Logo, o algoritmo é $O(100n) = O(n)$
+O algoritmo em questão varia de acordo com a quantidade de arestas $o$, onde $n\leq o\leq 10n$, onde $n$ é a ordem do grafo. Logo, o algoritmo é $O(10n) = O(n)$
 
 O grafo resultante está presente no arquivo <i>OUTPUT_0.TXT</i> entre as linhas 3 e 107.
 
@@ -134,7 +134,7 @@ A complexidade deste algoritmo está atrelada ao tamanho do vetor resultante.
 A matriz de representação de um grafo é de ordem $n$, onde $n$ é a quantidade de nós.
 Tal matriz possui $n^2$ elementos
 Como a matriz é simétrica, um vetor contendo a sua parte triangular superior é suficiente para sua total representação.
-Nessas condições, será gerado um vetor $V$ onde $|V|=n*(n+2)/2$.
+Nessas condições, será gerado um vetor $V$ onde $|V|=n*(n+1)/2$.
 Desta forma o algoritmo é $O(n^2)$.
 
 4. <b>Gerar o vetor compactado (vetor de índices inteiros) com endereçamento indireto.</b>
