@@ -16,7 +16,7 @@ Discentes</b>
 
 <b>Docente:</b> Raul Fonseca Neto
 
-<center><b>Considerações Gerais</b></center>
+## Considerações Gerais
 
 1. Para o referido trabalho, foram utilizadas as estruturas de dados a seguir:
 
@@ -36,7 +36,7 @@ public:
     int** m; //Matriz
 };
 ~~~
-3. Todos os códigos e estruturas utilizados para a os algoritmos mencionados estão presentes neste repositório.
+2. Todos os códigos e estruturas utilizados para a os algoritmos mencionados estão presentes neste repositório.
 
 3. O comando para compilação e execução do código é dado por 
 
@@ -49,30 +49,10 @@ Linux: g++ -O3 *.cpp; ./a.out
 
 5. Para tais execuções, foi utilizada a <i>seed</i> 0.
 
-<center><b>Enunciado</b></center>
-<b>1 -</b> Gerar randomicamente um grafo não orientado com 100 vértices, com um número baixo de ligações (de uma a dez vezes o número de vértices).
+## Resolução
 
-<b>2 -</b> Implementar um algoritmo que gere a representação matricial (matriz adjacência binária)
+1. <b> Gerar randomicamente um grafo não orientado com 100 vértices, com um número baixo de ligações (de uma a dez vezes o número de vértices).</b>
 
-<b>3 -</b> Implementar um algoritmo que, a partir da matriz, gere a representação vetorial (vetor binário) de sua parte triangular superior.
-
-<b>4 -</b> Gerar o vetor compactado (vetor de índices inteiros) com endereçamento indireto.
-
-<b>5 -</b> Implementar um algoritmo que a partir do vetor compactado gere a matriz de adjacência.
-
-<b>6 -</b> Implementar a função de mapeamento que a partir da entrada $(i,j)$ da matriz de adjacência de ordem $n$ acesse a posição $k$ do vetor de índices. Implementar o cálculo analítico (progressão aritmética) e também os procedimentos iterativo e recursivo.
-
-<b>7 -</b> Implementar a função de mapeamento inversa que a partir do índice $k$ do vetor acesse a posição $(i,j)$ da matriz de adjacência de ordem $n$. Implementar o cálculo analítico (algoritmo raiz quadrada) e também o procedimento iterativo.
-
-<b>8 -</b> Implementar as operações:
-- <b>a -</b> de soma (operação de união);
-- <b>b -</b> produto direto (operação de interseção) entre duas matrizes utilizando suas respectivas representações vetoriais.
-
-<b>Obs.:</b> Todos os algoritmos devem ser testados bem como determinado as suas funções de complexidade.
-
-<center><b>Soluções</b></center>
-
-1. 
 
 ~~~c++
 //Gera um grafo aleatorio de ordem parametrizada
@@ -110,8 +90,9 @@ MATRIZ DE ADJACENCIA:
 --------------------
 ~~~
 
+2. <b> Implementar um algoritmo que gere a representação matricial (matriz adjacência binária).</b>
 
-2. A matriz de adjacencia em questão está nativamente presente na estrutura do grafo, podendo ser construida manualmente ou aleatoriamente pela função $gerarGrafoOrdemK(int\ ordem)$
+A matriz de adjacencia em questão está nativamente presente na estrutura do grafo, podendo ser construida manualmente ou aleatoriamente pela função $gerarGrafoOrdemK(int\ ordem)$
 ~~~c++
 //Representação do Grafo
 class Grafo {
@@ -122,7 +103,11 @@ public:
 };
 ~~~
 
-3. 
+3. <b> Implementar um algoritmo que, a partir da matriz, gere a representação vetorial (vetor binário) de sua parte triangular superior.</b>
+
+![text](./docs/matriz.png)
+![text](./docs/vetorMatriz.png)
+
 ~~~c++
 //Transforma a matriz de adjacencias binária simétrica em um vetor com a parte triangular superior
 bool * Grafo::gerarRepresentacaoVetorial() {
@@ -152,7 +137,8 @@ Como a matriz é simétrica, um vetor contendo a sua parte triangular superior �
 Nessas condições, será gerado um vetor $V$ onde $|V|=n*(n+2)/2$.
 Desta forma o algoritmo é $O(n^2)$.
 
-4.
+4. <b>Gerar o vetor compactado (vetor de índices inteiros) com endereçamento indireto.</b>
+
 O grafo resultante é mostrado e testado no arquivo <i>OUTPUT_0.TXT</i> entre as linhas 109 e 10115.
 O vetor é impresso na linha 110, a partir da linha 115, é realizado um teste de igualdade entre os valores do vetor e da matriz. É possivel observar que tais valores são validados
 ~~~
@@ -176,7 +162,8 @@ M[99,99] = V[5049] = 0
 --------------------VALIDO
 ~~~
 
-5.
+5. <b>Implementar um algoritmo que a partir do vetor compactado gere a matriz de adjacência.</b>
+
  ~~~c++
  //Gerando a representação matricial a partir de sua representacao vetorial
 bool ** Grafo::gerarRepresentacaoMatricial(bool *v) {
@@ -226,10 +213,22 @@ A representação matricial gerada a partir do vetor é mostrada no relatório e
 ~~~
 
 
+6. <b> Implementar a função de mapeamento que a partir da entrada $(i,j)$ da matriz de adjacência de ordem $n$ acesse a posição $k$ do vetor de índices. Implementar o cálculo analítico (progressão aritmética) e também os procedimentos iterativo e recursivo.</b>
 
-6. 
 Para tal foram criados três algoritmos:
-    <b>a. Algoritmo de Progressão Aritmética (PA):</b> Neste caso, a conversão $(i,j) => k$ é obtida diretamente a partir de uma função. Logo é $O(1)$
+
+a. <b>Algoritmo de Progressão Aritmética (PA):</b>
+Para $o$ ordem do grafo, $i,j$ a linha e a coluna, respectivamente, a conversão $(i,j) => k$ é obtida diretamente a partir da função
+$$S_n = \frac{(a_1+a_n)n}{2}$$
+,onde:
+- $a_i=(o-(i-1))$
+- $a_n=o$
+- $n=i$
+
+Desta forma, $$S_i=\frac{(2o-i+1)j}{2}$$
+e $$k=\frac{(2o-i+1)j}{2}+j-i$$
+
+Como $k$ pode ser obtido diretamente, a função é $O(1)$
 ~~~c++
 //Converte uma posição i,j da matriz de adjacencia em sua respectiva posição no vetor (mét0do da PA)
 int Grafo::getIndiceRepresentacaoVetorialPA(int i, int j) {
@@ -238,7 +237,9 @@ int Grafo::getIndiceRepresentacaoVetorialPA(int i, int j) {
     return ((2*this->ordem - linha + 1)*linha/2 + (coluna-linha));
 }
 ~~~
-<b>b. Algoritmo Iterativo (It):</b> O algoritmo depende da linha ($i$) de entrada, podendo ser, no pior caso, $n$. Logo, este algoritmo é $O(n)$. 
+
+b. <b>Algoritmo Iterativo (It):</b>
+O algoritmo depende da linha ($i$) de entrada, podendo ser, no pior caso, $n$. Logo, este algoritmo é $O(n)$. 
 ~~~c++
 //Converte uma posição i,j da matriz de adjacencia em sua respectiva posição no vetor (mét0do Iterativo)
 int Grafo::getIndiceRepresentacaoVetorialIt(int i, int j) {
@@ -252,7 +253,8 @@ int Grafo::getIndiceRepresentacaoVetorialIt(int i, int j) {
     return k;
 }
 ~~~
-<b>c. Algoritmo Recursivo (Rec):</b> O algoritmo atual tem desempenho análogo à sua versão iterativa. ($O(n)$).
+c. <b>Algoritmo Recursivo (Rec):</b>
+O algoritmo atual tem desempenho análogo à sua versão iterativa. ($O(n)$).
 ~~~c++
 //Converte uma posição i,j da matriz de adjacencia em sua respectiva posição no vetor (mét0do Recursivo)
 int Grafo::getIndiceRepresentacaoVetorialRec(int i, int j, int l) {
@@ -291,11 +293,26 @@ Coordenadas;Valor na Matriz;Valor do PA; Valor IT; Valor REC;Indice do do PA; In
 
 ~~~
 
-7. Para tal foram criados dois algoritmos:
+7. <b> Implementar a função de mapeamento inversa que a partir do índice $k$ do vetor acesse a posição $(i,j)$ da matriz de adjacência de ordem $n$. Implementar o cálculo analítico (algoritmo raiz quadrada) e também o procedimento iterativo.</b>
 
-    <b>a. Algoritmo Raiz Quadrada (SQ):</b> Neste caso, a conversão $k => (i,j)$ é obtida diretamente a partir de uma função. Logo é $O(1)$
+Para tal foram criados dois algoritmos:
+
+a. <b>Algoritmo Raiz Quadrada (SQ):</b>
+
+ Neste caso, a conversão $k => (i,j)$ é obtida da seguinte forma:
+
+- Tratando a fórmula de PA para a obtenção de $i$, temos
+$$i=\frac{2o+1-\sqrt{4*o^2+4*o-8k-1}}{2}$$
+
+- $j$ pode ser obtida a partir do valor de $i$ e $k$:
+
+$$j=k-\frac{(2o-i+1)i}{2}+i$$
+
+  diretamente a partir de uma função. Logo é $O(1)$
+
 ~~~c++
 //Converte uma posição k do vetor em sua respectiva posição i,j da matriz de adjacencia (mét0do Raiz Quadrada)
+
 void Grafo::getIndiceRepresentacaoMatricialSQ(int k, int *coordenadas) {
 
     int linha = (2*this->ordem+1-sqrt(4*(pow(this->ordem,2))+4*this->ordem-8*k-1))/2;
@@ -307,7 +324,8 @@ void Grafo::getIndiceRepresentacaoMatricialSQ(int k, int *coordenadas) {
 
 ~~~
     
-<b> b. Algoritmo Iterativo (It):</b> O algoritmo depende da linha ($i$) de entrada, podendo ser, no pior caso, $n$. Logo, este algoritmo é $O(n)$.
+b. <b>Algoritmo Iterativo (It):</b>
+O algoritmo depende da linha ($i$) de entrada, podendo ser, no pior caso, $n$. Logo, este algoritmo é $O(n)$.
 
 ~~~c++
 //Converte uma posição k do vetor em sua respectiva posição i,j da matriz de adjacencia (mét0do Iterativo)
@@ -352,7 +370,7 @@ Indice;Valor no vetor;Valor por SQ;Indice por SQ;Valor por IT;Indice por iIT
 
 ~~~
 
-8.
+8. <b> Implementar as operações:</b>
 
 As operações de soma e multiplicação foram aplicadas à representação vetorial da parte triangular superior de matrizes simétricas geradas aleatoriamente.
 
@@ -408,9 +426,8 @@ A soma e a multiplicação foram respectivamente testadas com a representação 
  2 1 2 0 3    0 1 1 4 1    7  9  7  29 6 
 --------------------MATRIZ RESULTANTE NAO EH SIMETRICA
 ~~~
-
-
-<b>a.</b> Soma
+a. <b>de soma (operação de união);</b>
+Soma
 
 ~~~c++
 //Soma suas matrizes simetricas, dadas representações vetoriais de sua parte triangular superior
@@ -456,7 +473,7 @@ Indice M[i,j];Indices V;Valor mA;Valor mVA;Valor mB;Valor mVB;Valor mC;Valor mVC
 
 A soma realizada no contexto da referida representação é feita com $n*(n-1)/2$ operaçõas, sendo $O(n^2)$.
 
-<b>b.</b> Multiplicação
+b. <b>Produto direto (operação de interseção) entre duas matrizes utilizando suas respectivas representações vetoriais.</b>
 
 ~~~c++
 //Multiplica duas matrizes simetricas, dadas representações vetoriais de sua parte triangular superior
