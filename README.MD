@@ -301,13 +301,9 @@ a. <b>Algoritmo Raiz Quadrada (SQ):</b>
 
  Neste caso, a conversão $k => (i,j)$ é obtida da seguinte forma:
 
-Tratando a fórmula de PA para a obtenção de $i$, temos
+Tratando a fórmula de PA para a obtenção de $i$, temos: $i=\frac{2o+1-\sqrt{4*o^2+4*o-8k-1}}{2}$
 
-$$i=\frac{2o+1-\sqrt{4*o^2+4*o-8k-1}}{2}$$
-
-$j$ pode ser obtida a partir do valor de $i$ e $k$:
-
-$$j=k-\frac{(2o-i+1)i}{2}+i$$
+$j$ pode ser obtida a partir do valor de $i$ e $k$: $j=k-\frac{(2o-i+1)i}{2}+i$
 
   diretamente a partir de uma função. Logo é $O(1)$
 
